@@ -53,7 +53,7 @@ class TengoSub(Submission):
 		qty = float(splits[2].strip())
 		return item, price, qty
 
-	def parse_body():
+	def parse_body(self):
 		"""parses email subject/body to get self.items"""
 		self.items = []
 		lines = self.body.split('\n')
