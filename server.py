@@ -24,8 +24,17 @@ def get_msg(request):
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	msg = get_msg(request)
+
+
 	from_email = msg['from_email']
 	subject = msg['subject']
+
+	request = Request(	
+						sender=msg['from_email'],
+						subject=msg['subject'],
+		)
+
+
 	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
 	return ''
 
