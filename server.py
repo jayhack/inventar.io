@@ -28,6 +28,7 @@ def quiero():
 	sender, subject, body, date = request_to_content(request)
 	quiero_sub = QuieroSub(sender, subject, body, date)
 	print 'RECEIVED quiero: %s | %s | %s' % (sender, subject, date)
+	print quiero_sub
 	return ''
 
 @app.route('/tengo', methods=['POST'])
@@ -36,6 +37,7 @@ def tengo():
 	sender, subject, body, date = request_to_content(request)
 	tengo_sub = TengoSub(sender, subject, body, date)
 	print 'RECEIVED tengo: %s | %s | %s' % (sender, subject, date)
+	print tengo_sub
 	return ''
 
 

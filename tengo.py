@@ -28,6 +28,14 @@ class TengoSub(Submission):
 	def __init__(self, sender, subject, body, date=None):
 		super(TengoSub, self).__init__(sender, subject, body, date)
 
+	def __str__(self):
+		print '=====[ TengoSub: %s ]=====' % date
+		print 'sender: %s' % sender
+		print 'items: ':
+		for item in self.items:
+			print item
+		print
+
 	def parse_subject(self):
 		pass
 
@@ -52,6 +60,11 @@ class TengoSub(Submission):
 		for l in lines:
 			if self.is_item_line(l):
 				item, price, qty = self.extract_item_line(l)
-				self.items.append({'item':item, 'price':price, 'qty':qty})
+				self.items.append({	
+									'item':item, 
+									'price':price, 
+									'qty':qty,
+									'sender':self.sender
+								})
 
 
