@@ -15,35 +15,28 @@ app = Flask(__name__)
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
+
+def get_msg(request):
+	"""flask.Request -> Mandrill message"""
+	return request.form['mandrill_events']['msg']
+
 @app.route('/quiero', methods=['POST'])
 def quiero():
-	print '##### FORM: #####'
-	print request.form
-	print '##### ARGS: #####'
-	print request.args
-	if request.json is None:
-		print '======[ QUIERO REQUEST ]====='
-		print request.json
-		print 'None for some reason'
-	else:
-		msg = request.json['mandrill_events']['msg']
-		from_email = msg['from_email']
-		subject = msg['subject']
-		print 'RECEIVED quiero: %s | %s' % (from_email, subject)
+	msg = get_msg(request)
+	msg = request.json['mandrill_events']['msg']
+	from_email = msg['from_email']
+	subject = msg['subject']
+	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
 	return ''
 
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
-	if request.json is None:
-		print '======[ TENGO REQUEST ]====='
-		print request.json
-		print 'None for some reason'
-	else:
-		msg = request.json['mandrill_events']['msg']
-		from_email = msg['from_email']
-		subject = msg['subject']
-		print 'RECEIVED tengo: %s | %s' % (from_email, subject)
+	msg = get_msg(request)
+	msg = request.json['mandrill_events']['msg']
+	from_email = msg['from_email']
+	subject = msg['subject']
+	print 'RECEIVED tengo: %s | %s' % (from_email, subject)
 	return ''
 
 
