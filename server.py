@@ -9,7 +9,6 @@ from inventario import Inventario
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
 	return 'Hello, world! Welcome to inventar.io'
@@ -17,3 +16,6 @@ def index():
 @app.route('/quiero')
 def quiero():
 	return "... quiero ..."
+
+if __name__ == '__main__':
+	app.run()
