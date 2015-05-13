@@ -18,13 +18,14 @@ def index():
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	if request.json is None:
-		print '======[ TENGO REQUEST ]====='
+		print '======[ QUIERO REQUEST ]====='
 		print request.json
 		print 'None for some reason'
-	msg = request.json['mandrill_events']['msg']
-	from_email = msg['from_email']
-	subject = msg['subject']
-	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
+	else:
+		msg = request.json['mandrill_events']['msg']
+		from_email = msg['from_email']
+		subject = msg['subject']
+		print 'RECEIVED quiero: %s | %s' % (from_email, subject)
 
 
 @app.route('/tengo', methods=['POST'])
