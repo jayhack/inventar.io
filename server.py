@@ -26,6 +26,7 @@ def quiero():
 		from_email = msg['from_email']
 		subject = msg['subject']
 		print 'RECEIVED quiero: %s | %s' % (from_email, subject)
+	return ''
 
 
 @app.route('/tengo', methods=['POST'])
@@ -39,6 +40,7 @@ def tengo():
 		from_email = msg['from_email']
 		subject = msg['subject']
 		print 'RECEIVED tengo: %s | %s' % (from_email, subject)
+	return ''
 
 
 if __name__ == '__main__':
