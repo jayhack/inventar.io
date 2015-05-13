@@ -5,6 +5,7 @@ Module: server
 Contains main flask application
 """
 from flask import Flask
+from flask import request
 from inventario import Inventario
 
 #=====[ Step 1: setup	]=====
