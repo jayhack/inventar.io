@@ -7,6 +7,7 @@ Contains main flask application
 from flask import Flask
 from flask import request
 from inventario import Inventario
+import json
 
 #=====[ Step 1: setup	]=====
 app = Flask(__name__)
@@ -18,8 +19,8 @@ def index():
 
 def get_msg(request):
 	"""flask.Request -> Mandrill message"""
-	print request.form['mandrill_events']
-	print type(request.form['mandrill_events'])
+	print type(json.loads(request.form['mandrill_events'])[0])
+	return json.loads(request.form['mandrill_events'])[0]['msg']
 	return request.form['mandrill_events']['msg']
 
 @app.route('/quiero', methods=['POST'])
