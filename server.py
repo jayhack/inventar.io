@@ -17,6 +17,10 @@ def index():
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
+	print '##### FORM: #####'
+	print request.form
+	print '##### ARGS: #####'
+	print request.args
 	if request.json is None:
 		print '======[ QUIERO REQUEST ]====='
 		print request.json
