@@ -17,32 +17,13 @@ class Inventario(object):
 		self.gmail_client = GmailClient(gmail_username, gmail_password)
 		self.db_client = DBClient(dbname)
 
-	def is_request(self, email):
-		"""returns true if the email is a request"""
-		return email.subject.lower().startswith('request')
+	def insert_quiero(self, quiero_sub):
+		"""inserts a quiero_sub into db"""
+		self.db_client.insert_quiero(quiero_sub)
 
-	def is_submission(self, email):
-		"""returns True if email contains a submission"""
-		return email.subject.lower().startswith('submission')
-
-	def update(self):
-		"""updates requests and submissions"""
-		for email in self.gmail_client.iter_emails():
-
-			if self.is_request(email):
-				request = Request.from_email(email)
-				self.db_client.insert_request(request)
-
-			elif self.is_submission(email):
-				submission = Submission.from_email(email)
-				self.db_client.insert_submission(submission)
-
-
-	def service_request(self, request):
-		"""services passed request"""
-		item_name = request.item_name
-		
-
+	def insert_tengo(self, tengo_sub):
+		"""inserts tengo sub"""
+		self.db_client.insert_tengo(tengo_sub)
 
 	def get_requests(self):
 		"""returns a list of all requests"""

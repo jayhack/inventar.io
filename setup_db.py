@@ -7,14 +7,14 @@ if __name__ == '__main__':
 	c = conn.cursor()
 
 	#=====[ Step 2: clear	]=====
-	c.execute('''DROP TABLE IF EXISTS requests''')
-	c.execute('''DROP TABLE IF EXISTS submissions''')
+	c.execute('''DROP TABLE IF EXISTS quiero_submissions''')
+	c.execute('''DROP TABLE IF EXISTS tengo_submissions''')
 	conn.commit()
 
 	#=====[ Step 3: create tables	]=====
-	c.execute('''CREATE TABLE requests
+	c.execute('''CREATE TABLE quiero_submissions
 				(id INT, sender TEXT, item TEXT, date TEXT)''')
-	c.execute('''CREATE TABLE submissions
+	c.execute('''CREATE TABLE tengo_submissions
 				(id INT, sender TEXT, item TEXT, qty INT, price REAL, date TEXT)''')
 	conn.commit()
 

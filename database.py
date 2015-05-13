@@ -6,14 +6,15 @@ contains DBClient, which maintains all connection with the
 database
 
 DB format:
+----------
 
-Table requests:
+Table quiero_submissions:
 	id INT
 	sender TEXT
 	item TEXT
 	date TEXT
 
-Table submissions:
+Table tengo_submissions:
 	id INT
 	sender TEXT
 	item TEXT
@@ -32,14 +33,26 @@ class DBClient(object):
 		self.conn = sqlite3.connect(dbname)	
 
 	################################################################################
-	####################[ REQUESTS ]################################################
+	####################[ QUIERO ]##################################################
 	################################################################################
 
-	def insert_request(self, request):
-		"""inserts a request into the DB"""
+	def insert_quiero(self, quiero_sub):
+		"""inserts a quiero submission into db"""
 		cur = self.conn.cursor()
-		cur.execute("INSERT INTO requests(sender, item) VALUES (?,?)", (request.sender, request.item_name))
+		for item in quiero_sub.items():
+			cur.execute("""INSERT INTO quiero_submissions(sender, item, date) 
+							VALUES (?,?,?)""", (item['sender'], item['item'], item['date']))
 		self.conn.commit()
+
+	def insert_tengo(self, tengo_sub):
+		"""inserts a tengo submission into the db"""
+		cur = self.conn.cursor()
+		for item in tengo_sub.items():
+			cur.execute("""INSERT INTO tengo_submissions(sender, item, qty, price, date) 
+							VALUES (?,?,?,?,?)""", 
+							(item['sender'], item['item'], item['qty'], item['price'], item['date']))
+		self.conn.commit()
+
 
 	def get_requests(self):
 		"""iterates over all requests"""
@@ -54,11 +67,7 @@ class DBClient(object):
 	####################[ SUBMISSIONS ]#############################################
 	################################################################################
 
-	def insert_submission(self, submission):
-		"""inserts a submission into the DB"""
-		cur = self.conn.cursor()
-		cur.execute("INSERT INTO submissions(sender, item) VALUES (?,?)", (submission.sender, submission.item_name))
-		self.conn.commit()
+
 
 	def get_submissions(self):
 		"""iterates over all submissions"""

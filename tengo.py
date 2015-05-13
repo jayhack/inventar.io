@@ -53,10 +53,11 @@ class TengoSub(Submission):
 			if self.is_item_line(l):
 				item, price, qty = self.extract_item_line(l)
 				self.items.append({	
+									'sender':self.sender,
 									'item':item, 
 									'price':price, 
 									'qty':qty,
-									'sender':self.sender
+									'date':self.date
 								})
 
 

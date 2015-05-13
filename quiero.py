@@ -44,6 +44,7 @@ class QuieroSub(Submission):
 			if self.is_item_line(l):
 				item = self.extract_item_line(l)
 				self.items.append({
+									'sender':self.sender,
 									'item':item,
-									'sender':self.sender
+									'date':self.date
 								})

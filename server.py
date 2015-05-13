@@ -7,9 +7,12 @@ Contains main flask application
 import json
 from flask import Flask
 from flask import request
+from inventario import Inventario
 from quiero import QuieroSub
 from tengo import TengoSub
+
 app = Flask(__name__)
+inventario = Inventario('inventario.db')
 
 @app.route('/')
 def index():
@@ -25,19 +28,27 @@ def request_to_content(r):
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	"""Handles 'quiero' submissions"""
+	#=====[ Step 1: catch submission	]=====
 	sender, subject, body, date = request_to_content(request)
 	quiero_sub = QuieroSub(sender, subject, body, date)
 	print 'RECEIVED quiero: %s | %s | %s' % (sender, subject, date)
 	print quiero_sub
+
+	#=====[ Step 2: insert into db	]=====
+	inventario.insert_quiero(quiero_sub)
 	return ''
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	"""Handles 'tengo' submissions"""
+	#=====[ Step 1: catch submission	]=====
 	sender, subject, body, date = request_to_content(request)
 	tengo_sub = TengoSub(sender, subject, body, date)
 	print 'RECEIVED tengo: %s | %s | %s' % (sender, subject, date)
 	print tengo_sub
+
+	#=====[ Step 2: insert into db	]=====
+	inventario.insert_tengo(tengo_sub)
 	return ''
 
 
