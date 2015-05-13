@@ -51,7 +51,6 @@ class TengoSub(Submission):
 		lines = self.body.split('\n')
 		for l in lines:
 			if self.is_item_line(l):
-				print 'ITEM LINE: ', l
 				item, price, qty = self.extract_item_line(l)
 				self.items.append({	
 									'item':item, 

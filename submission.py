@@ -32,7 +32,7 @@ class Submission(object):
 
 	def __str__(self):
 		print '=====[ %s: %s ]=====' % (str(self.__class__), self.date)
-		print 'sender: %s' % sender
+		print 'sender: %s' % self.sender
 		print 'items: '
 		for item in self.items:
 			print item
