@@ -16,16 +16,13 @@ app = Flask(__name__)
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
-
 def get_msg(request):
 	"""flask.Request -> Mandrill message"""
-	print type(json.loads(request.form['mandrill_events'])[0])
 	return json.loads(request.form['mandrill_events'])[0]['msg']
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	msg = get_msg(request)
-	print msg
 	from_email = msg['from_email']
 	subject = msg['subject']
 	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
@@ -35,7 +32,6 @@ def quiero():
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	msg = get_msg(request)
-	print msg
 	from_email = msg['from_email']
 	subject = msg['subject']
 	print 'RECEIVED tengo: %s | %s' % (from_email, subject)
