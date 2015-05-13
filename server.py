@@ -11,6 +11,7 @@ import json
 
 #=====[ Step 1: setup	]=====
 app = Flask(__name__)
+inventario = Inventario()
 
 @app.route('/')
 def index():

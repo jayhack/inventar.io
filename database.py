@@ -25,7 +25,6 @@ import datetime
 from request import Request
 from submission import Submission
 
-
 class DBClient(object):
 
 	def __init__(self, dbname):
@@ -68,5 +67,4 @@ class DBClient(object):
 		for row in cur.fetchall():
 			id, sender, item, date, price = row
 			yield Submission(sender, item)
-
 
