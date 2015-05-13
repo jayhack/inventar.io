@@ -34,7 +34,7 @@ class TengoSub(Submission):
 	@classmethod
 	def is_item_line(self, s):
 		"""returns true if string s is an item line"""
-		return True
+		return len(s.split('/')) == 3
 
 	@classmethod
 	def extract_item_line(self, s):
@@ -51,6 +51,7 @@ class TengoSub(Submission):
 		lines = self.body.split('\n')
 		for l in lines:
 			if self.is_item_line(l):
+				print 'ITEM LINE: ', l
 				item, price, qty = self.extract_item_line(l)
 				self.items.append({	
 									'item':item, 
