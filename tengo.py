@@ -26,7 +26,7 @@ from submission import Submission
 class TengoSub(Submission):
 
 	def __init__(self, sender, subject, body, date=None):
-		super(QuieroSub, self).__init__(sender, subject, body, date)
+		super(TengoSub, self).__init__(sender, subject, body, date)
 
 	def parse_subject(self):
 		pass

@@ -41,6 +41,6 @@ class QuieroSub(Submission):
 		"""parses email subject/body to get self.item"""
 		self.items = []
 		for l in self.body.split('\n'):
-			if self.is_item_line(s):
-				item = self.extract_item_line(s)
+			if self.is_item_line(l):
+				item = self.extract_item_line(l)
 				items.append({'item':item})
