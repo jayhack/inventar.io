@@ -31,7 +31,7 @@ class TengoSub(Submission):
 	def __str__(self):
 		print '=====[ TengoSub: %s ]=====' % date
 		print 'sender: %s' % sender
-		print 'items: ':
+		print 'items: '
 		for item in self.items:
 			print item
 		print
