@@ -21,7 +21,9 @@ body:
 	...
 	[ITEM NAME N] / [PRICE] / [QTY]
 """
-class TengoSub(object):
+from submission import Submission
+
+class TengoSub(Submission):
 
 	def __init__(self, sender, subject, body, date=None):
 		super(QuieroSub, self).__init__(sender, subject, body, date)

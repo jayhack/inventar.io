@@ -18,7 +18,8 @@ body:
 	...
 	[ITEM NAME N]
 """
-class QuieroSub(object):
+from submission import Submission
+class QuieroSub(Submission):
 
 	def __init__(self, sender, subject, body, date=None):
 		super(QuieroSub, self).__init__(sender, subject, body, date)
