@@ -28,14 +28,6 @@ class TengoSub(Submission):
 	def __init__(self, sender, subject, body, date=None):
 		super(TengoSub, self).__init__(sender, subject, body, date)
 
-	def __str__(self):
-		print '=====[ TengoSub: %s ]=====' % date
-		print 'sender: %s' % sender
-		print 'items: '
-		for item in self.items:
-			print item
-		print
-
 	def parse_subject(self):
 		pass
 

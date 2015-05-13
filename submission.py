@@ -24,10 +24,19 @@ class Submission(object):
 		self.date = date
 		if self.date is None:
 			self.date = self.get_date()
+		self.items = []
 
 		#=====[ Step 2: parse ]=====
 		self.parse_subject()
 		self.parse_body()
+
+	def __str__(self):
+		print '=====[ %s: %s ]=====' % (str(self.__class__), self.date)
+		print 'sender: %s' % sender
+		print 'items: '
+		for item in self.items:
+			print item
+		print
 
 
 	@classmethod
