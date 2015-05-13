@@ -28,7 +28,6 @@ def quiero():
 	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
 	return ''
 
-
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	msg = get_msg(request)
