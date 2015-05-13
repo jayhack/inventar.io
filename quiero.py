@@ -43,4 +43,4 @@ class QuieroSub(Submission):
 		for l in self.body.split('\n'):
 			if self.is_item_line(l):
 				item = self.extract_item_line(l)
-				items.append({'item':item})
+				self.items.append({'item':item})
