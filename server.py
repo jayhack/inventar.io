@@ -4,46 +4,38 @@ Module: server
 
 Contains main flask application
 """
+import json
 from flask import Flask
 from flask import request
-from inventario import Inventario
-import json
-
-#=====[ Step 1: setup	]=====
+from quiero import QuieroSub
+from tengo import TengoSub
 app = Flask(__name__)
-inventario = Inventario()
 
 @app.route('/')
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
-def get_msg(request):
-	"""flask.Request -> Mandrill message"""
-	return json.loads(request.form['mandrill_events'])[0]['msg']
+def request_to_content(r):
+	"""flask.Request -> sender, subject, body, date"""
+	d = json.loads(r.form['mandrill_events'])[0]
+	date = str(d['ts'])
+	msg = d['msg']
+	return msg['from_email'], msg['subject'], msg['text'], date
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
-	msg = get_msg(request)
-
-
-	from_email = msg['from_email']
-	subject = msg['subject']
-
-	request = Request(	
-						sender=msg['from_email'],
-						subject=msg['subject'],
-		)
-
-
-	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
+	"""Handles 'quiero' submissions"""
+	sender, subject, body, date = request_to_content(request)
+	quiero_sub = QuieroSub(sender, subject, body, date)
+	print 'RECEIVED quiero: %s | %s | %s' % (sender, subject, date)
 	return ''
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
-	msg = get_msg(request)
-	from_email = msg['from_email']
-	subject = msg['subject']
-	print 'RECEIVED tengo: %s | %s' % (from_email, subject)
+	"""Handles 'tengo' submissions"""
+	sender, subject, body, date = request_to_content(request)
+	tengo_sub = TengoSub(sender, subject, body, date)
+	print 'RECEIVED tengo: %s | %s | %s' % (sender, subject, date)
 	return ''
 
 

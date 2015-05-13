@@ -2,29 +2,45 @@
 Module: submission
 ==================
 
-Contains class Submission, which contains all details on emails submitting
-items.
+Contains abstract class Submission
+Inheritors should implement parse_subject and parse_body
 """
+from datetime import datetime
 class Submission(object):
 
-	def __init__(self, sender, item_name):
-		"""creates from an email"""
+	def __init__(self, sender, subject, body, date=None):
+		"""
+		Args:
+		-----
+		- sender: email of submitter
+		- subject: subject of submitted message
+		- body: body of submitted message
+		- date: date message was submitted on 
+		"""
+		#=====[ Step 1: set all	]=====
 		self.sender = sender
-		self.item_name = item_name
+		self.subject = subject 
+		self.body = body
+		self.date = date
+		if self.date is None:
+			self.date = self.get_date()
+
+		#=====[ Step 2: parse ]=====
+		self.parse_subject()
+		self.parse_body()
+
 
 	@classmethod
-	def get_item_name(self, email):
-		"""returns name of requested item"""
-		return email.subject.split(':')[1].lower().strip()
+	def get_date(self):
+		"""returns current date as a string"""
+		return str(datetime.now())
 
-	@classmethod
-	def get_sender(self, email):
-		"""returns name of sender of request"""
-		return email.sender
+	def parse_subject(self):
+		"""parses email subject line"""
+		raise NotImplementedError
 
-	@classmethod
-	def from_email(cls, email):
-		"""creates from a GmailEmail object"""
-		sender = cls.get_sender(email)
-		item_name = cls.get_item_name(email)
-		return cls(sender, item_name)
+	def parse_body(self):
+		"""parses email body"""
+		raise NotImplementedError
+
+
