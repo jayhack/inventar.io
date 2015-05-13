@@ -17,12 +17,10 @@ def index():
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
-	print request
-	msg = request.mandrill_events['msg']
-	# if request.json is None:
-		# print request
-		# return ''
-	# msg = request.json['msg']
+	if request.json is None:
+		print request
+		return ''
+	msg = request.json['mandrill_events']['msg']
 	from_email = msg['from_email']
 	subject = msg['subject']
 	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
@@ -30,15 +28,14 @@ def quiero():
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
-	print request
-	msg = request.mandrill_events['msg']
-	# if request.json is None:
-		# print request
-		# return ''
-	msg = request.json['msg']
-	from_email = msg['from_email']
-	subject = msg['subject']
-	print 'RECEIVED tengo: %s | %s' % (from_email, subject)
+	if request.json is None:
+		print request
+		return ''
+	else:
+		msg = request.json['mandrill_events']['msg']
+		from_email = msg['from_email']
+		subject = msg['subject']
+		print 'RECEIVED tengo: %s | %s' % (from_email, subject)
 
 
 if __name__ == '__main__':
