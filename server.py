@@ -4,21 +4,16 @@ Module: server
 
 Contains main flask application
 """
+from flask import Flask
 from inventario import Inventario
 
-if __name__ == '__main__':
-
-	inventario = Inventario('ivio.app@gmail.com', 'only the present', 'inventario.db')
-	inventario.update()
-
-	print '=====[ REQUESTS ]====='
-	for request in inventario.get_requests():
-		print '%s | %s' % (request.sender, request.item_name)
-	print
-
-	print '=====[ SUBMISSIONS ]====='
-	for submission in inventario.get_submissions():
-		print '%s | %s' % (submission.sender, submission.item_name)
-	print
+app = Flask(__name__)
 
 
+@app.route('/')
+def index():
+	return 'Hello, world! Welcome to inventar.io'
+
+@app.route('/quiero')
+def quiero():
+	return "... quiero ..."
