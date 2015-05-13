@@ -14,13 +14,21 @@ app = Flask(__name__)
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
-@app.route('/quiero')
+@app.route('/quiero', methods=['POST'])
 def quiero():
-	return "... quiero ..."
+	msg = request.json['msg']
+	from_email = msg['from_email']
+	subject = msg['subject']
+	print 'RECEIVED quiero: %s | %s' % (from_email, subject)
 
-@app.route('/tengo')
+
+@app.route('/tengo', methods=['POST'])
 def tengo():
-	return "... tengo ..."
+	msg = request.json['msg']
+	from_email = msg['from_email']
+	subject = msg['subject']
+	print 'RECEIVED tengo: %s | %s' % (from_email, subject)
+
 
 if __name__ == '__main__':
 	app.run()
