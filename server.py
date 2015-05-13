@@ -18,8 +18,9 @@ def index():
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	if request.json is None:
-		print request
-		return ''
+		print '======[ TENGO REQUEST ]====='
+		print request.json
+		print 'None for some reason'
 	msg = request.json['mandrill_events']['msg']
 	from_email = msg['from_email']
 	subject = msg['subject']
@@ -29,8 +30,9 @@ def quiero():
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	if request.json is None:
-		print request
-		return ''
+		print '======[ TENGO REQUEST ]====='
+		print request.json
+		print 'None for some reason'
 	else:
 		msg = request.json['mandrill_events']['msg']
 		from_email = msg['from_email']
