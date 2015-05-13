@@ -18,6 +18,8 @@ def index():
 
 def get_msg(request):
 	"""flask.Request -> Mandrill message"""
+	print request.form['mandrill_events']
+	print type(request.form['mandrill_events'])
 	return request.form['mandrill_events']['msg']
 
 @app.route('/quiero', methods=['POST'])
