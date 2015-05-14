@@ -28,7 +28,7 @@ class EmailClient(object):
 		return msg['from_email'], msg['subject'], msg['text'], date
 
 	@classmethod 
-	def request_to_email(self, response):
+	def request_to_email(self, request):
 		"""flask.Request -> IvioEmail"""
 		user, subject, body, date = self.request_to_content(request)
 		ivio_email = IvioEmail(user, subject, body, date)
