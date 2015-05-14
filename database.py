@@ -23,8 +23,6 @@ Table tengo_submissions:
 """
 import sqlite3
 import datetime
-from request import Request
-from submission import Submission
 
 class DBClient(object):
 
