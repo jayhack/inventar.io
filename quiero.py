@@ -2,7 +2,7 @@
 Module: quiero
 ==============
 
-contains class QuieroSub, representing submission asking for an item
+contains class QuieroEmail, representing submission asking for an item
 
 Fields:
 -------
@@ -14,12 +14,12 @@ Format:
 -------
 subject: 
 body:
-	[ITEM NAME 1]
+	*[ITEM NAME] $[PRICE] #[QUANTITY]
 	...
-	[ITEM NAME N]
+	*[ITEM NAME] $[PRICE] #[QUANTITY]
 """
 from submission import Submission
-class QuieroSub(Submission):
+class QuieroEmail(Submission):
 
 	def __init__(self, sender, subject, body, date=None):
 		super(QuieroSub, self).__init__(sender, subject, body, date)
@@ -28,14 +28,9 @@ class QuieroSub(Submission):
 		pass
 
 	@classmethod
-	def is_item_line(self, s):
-		"""returns true if string s is an item line"""
-		return len(s.strip()) > 0
-
-	@classmethod
 	def extract_item_line(self, s):
 		"""item line -> item"""
-		return s.strip()
+		return ' '.join(s.strip().lower().split(':')[1:]).strip()
 
 	def parse_body(self):
 		"""parses email subject/body to get self.item"""

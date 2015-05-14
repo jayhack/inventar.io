@@ -17,9 +17,9 @@ Format:
 -------
 subject: ...
 body:
-	[ITEM NAME 1] / [PRICE] / [QTY]
+	item: [ITEM NAME 1] / [PRICE] / [QTY]
 	...
-	[ITEM NAME N] / [PRICE] / [QTY]
+	item: [ITEM NAME N] / [PRICE] / [QTY]
 """
 from submission import Submission
 
