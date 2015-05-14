@@ -37,7 +37,7 @@ class DBClient(object):
 	def insert_quiero(self, quiero_sub):
 		"""inserts a quiero submission into db"""
 		cur = self.conn.cursor()
-		for item in quiero_sub.items():
+		for item in quiero_sub.items:
 			cur.execute("""INSERT INTO quiero_submissions(sender, item, date) 
 							VALUES (?,?,?)""", (item['sender'], item['item'], item['date']))
 		self.conn.commit()
@@ -45,7 +45,7 @@ class DBClient(object):
 	def insert_tengo(self, tengo_sub):
 		"""inserts a tengo submission into the db"""
 		cur = self.conn.cursor()
-		for item in tengo_sub.items():
+		for item in tengo_sub.items:
 			cur.execute("""INSERT INTO tengo_submissions(sender, item, qty, price, date) 
 							VALUES (?,?,?,?,?)""", 
 							(item['sender'], item['item'], item['qty'], item['price'], item['date']))
