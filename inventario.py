@@ -6,6 +6,7 @@ Contains class inventario, which manages all interactions with
 the database
 """
 import uuid
+import porc
 
 class Inventario(object):
 
