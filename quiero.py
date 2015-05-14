@@ -30,7 +30,7 @@ class QuieroSub(Submission):
 	@classmethod
 	def is_item_line(self, s):
 		"""returns true if string s is an item line"""
-		return True
+		return len(s.strip()) > 0
 
 	@classmethod
 	def extract_item_line(self, s):
