@@ -12,10 +12,7 @@ import porc
 
 class Inventario(object):
 
-	mandrill_key = 'lpCk0T9_xDl5XMWS0CZ9iA'
 	orchestrate_key = '073ea3b8-7425-43f3-a603-450967822c6a'
-	quieros_collection = 'quiero'
-	tengos_collection = 'tengo'
 
 	def __init__(self):
 		"""connnects to Orchestrate"""

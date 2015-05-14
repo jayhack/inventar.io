@@ -9,29 +9,23 @@ import pprint
 from flask import Flask
 from flask import request
 from inventario import Inventario
+from email_client import EmailClient
 from ivio_email import IvioEmail
 
 #=====[ Setup	]=====
 app = Flask(__name__)
 ivio = Inventario()
+email_client = EmailClient()
 
 @app.route('/')
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
-def request_to_content(r):
-	"""flask.Request -> sender, subject, body, date"""
-	d = json.loads(r.form['mandrill_events'])[0]
-	date = str(d['ts'])
-	msg = d['msg']
-	return msg['from_email'], msg['subject'], msg['text'], date
-
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	"""Handles 'quiero' submissions"""
 	#=====[ Step 1: grab email	]=====
-	user, subject, body, date = request_to_content(request)
-	email = IvioEmail(user, subject, body, date)
+	email = email_client.request_to_email(request)
 	print '\n(Quiero)'
 	print email
 
@@ -42,18 +36,10 @@ def quiero():
 
 	#=====[ Step 3: find matches and mail back	]=====
 	matches = {x['name']:ivio.find_tengos(x['name']) for x in email.items}
-	message = {
-				'from_email':'resultados@ivioapp.com',
-				'to': [{
-						'email':email.items[0]['user'],
-						'type': 'to'
-						}],
-				'subject':'resultados',
-				'text':pprint.pformat(matches),
-			}
-	result = self.man_client.messages.send(	message=message,
-											async=False, 
-											ip_pool='Main Pool')
+	user = email.items[0]['user']
+	subject = 'resultados'
+	body = pprint.pformat(matches)
+	email_client.send_message(user, subject, body)
 
 	return ''
 
@@ -61,8 +47,7 @@ def quiero():
 def tengo():
 	"""Handles 'tengo' submissions"""
 	#=====[ Step 1: catch submission	]=====
-	user, subject, body, date = request_to_content(request)
-	email = IvioEmail(user, subject, body, date)
+	email = email_client.request_to_email(request)
 	print '\n(Tengo)'
 	print email
 
