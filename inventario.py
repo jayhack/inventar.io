@@ -16,7 +16,6 @@ class Inventario(object):
 
 	def __init__(self):
 		"""connnects to Orchestrate"""
-		self.man_client = mandrill.Mandrill(self.mandrill_key)
 		self.orc_client = porc.Client(self.orchestrate_key, async=False)
 
 	def put(self, items, collection):
