@@ -17,7 +17,7 @@ class Test_IvioEmail(unittest.TestCase):
 	def tearDown(self):
 		pass
 
-	def test_parse(self):
+	def test_tengo(self):
 
 		user = 'jhack@stanford.edu'
 		subject = '<no subject>'
@@ -58,6 +58,28 @@ class Test_IvioEmail(unittest.TestCase):
 		self.assertEqual(item2['name'], 'socks')
 		self.assertEqual(item2['price'], 2.0)
 		self.assertEqual(item2['qty'], 1)
+
+
+	def test_quiero(self):
+		user = "jhack@stanford.edu"
+		subject = "<no subject>"
+		body ="""
+		*shirt
+		---
+		Jay Hack
+		CS 2015
+		jhack@stanford.edu
+		----
+		"""
+		date = str(datetime.datetime.now())
+		ivio_email = IvioEmail(user, subject, body, date)
+
+		self.assertEqual(len(ivio_email.items), 1)
+		item = ivio_email.items[0]
+		self.assertEqual(item['name'], 'shirt')
+		self.assertEqual(item['user'], 'jhack@stanford.edu')
+
+
 
 
 

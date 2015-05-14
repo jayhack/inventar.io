@@ -33,18 +33,18 @@ class IvioEmail(object):
 	def get_item_lines(self, body):
 		return filter(lambda l: l.strip().startswith('*'), body.split('\n'))
 
-	def extract_sym(self, line, sym):
+	def extract_sym(self, line, sym, symtype):
 		matches = re.findall('%s(.*?)(\$|\#|\*|$)' % sym, line)
 		if len(matches) > 0:
-			return matches[0][0].strip()
+			return symtype(matches[0][0].strip())
 		return None
 
 	def get_item(self, line, user, address, date):
 		return {
 				'user':user,
-				'name':self.extract_sym(line, '\*'),
-				'price':float(self.extract_sym(line, '\$')),
-				'qty':int(self.extract_sym(line, '\#')),
+				'name':self.extract_sym(line, '\*', str),
+				'price':self.extract_sym(line, '\$', float),
+				'qty':self.extract_sym(line, '\#', int),
 				'address':address,
 				'date':date
 				}
