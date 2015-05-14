@@ -3,7 +3,7 @@ import sqlite3
 if __name__ == '__main__':
 
 	#=====[ Step 1: connect	]=====
-	conn = sqlite3.connect('inventario.db')
+	conn = sqlite3.connect('/home/jayhack/inventar.io')
 	c = conn.cursor()
 
 	#=====[ Step 2: clear	]=====
