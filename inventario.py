@@ -5,9 +5,7 @@ Module: inventario
 Contains class inventario, which manages all interactions with
 the database
 """
-from gmail import GmailClient
 from request import Request
-from submission import Submission
 from database import DBClient
 
 class Inventario(object):
