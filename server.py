@@ -13,7 +13,7 @@ from ivio_email import IvioEmail
 
 #=====[ Setup	]=====
 app = Flask(__name__)
-inventario = Inventario()
+ivio = Inventario()
 
 @app.route('/')
 def index():
@@ -35,8 +35,26 @@ def quiero():
 	print '\n(Quiero)'
 	print email
 
-	#=====[ Step 2: insert each item into db	]=====
-	inventario.insert_quieros(email.items)
+	#=====[ Step 2: insert items into db	]=====
+	if len(email.items) < 1:
+		return ''
+	ivio.put_quieros(email.items)
+
+	#=====[ Step 3: find matches and mail back	]=====
+	matches = {x['name']:ivio.find_tengos(x['name']) for x in email.items}
+	message = {
+				'from_email':'resultados@ivioapp.com',
+				'to': [{
+						'email':quiero_sub.items[0]['sender'],
+						'type': 'to'
+						}],
+				'subject':'resultados',
+				'text':pprint.pformat(matches),
+			}
+	result = self.man_client.messages.send(	message=message,
+											async=False, 
+											ip_pool='Main Pool')
+
 	return ''
 
 @app.route('/tengo', methods=['POST'])
@@ -48,8 +66,8 @@ def tengo():
 	print '\n(Tengo)'
 	print email
 
-	#=====[ Step 2: insert into db	]=====
-	inventario.insert_tengos(email.items)
+	#=====[ Step 2: insert items into db	]=====
+	inventario.put_tengos(email.items)
 	return ''
 
 
