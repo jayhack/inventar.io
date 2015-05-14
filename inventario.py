@@ -50,27 +50,4 @@ class Inventario(object):
 		return self.find_matching_items(name, 'quiero')
 
 
-	def find_quieros(self, name):
-		"""finds relevant tengo submissions and mails back"""
-		if len(quiero_sub.items) < 1:
-			return
-
-		matches = {item['item']:self.find_tengo_subs(item['item']) for item in quiero_sub.items}
-
-		message = {
-					'from_email':'resultados@ivioapp.com',
-					'to': [{
-							'email':quiero_sub.items[0]['sender'],
-							'type': 'to'
-							}],
-					'subject':'resultados',
-					'text':pprint.pformat(matches),
-				}
-		result = self.man_client.messages.send(	message=message, 
-												async=False, 
-												ip_pool='Main Pool')
-		return result
-
-
-
 

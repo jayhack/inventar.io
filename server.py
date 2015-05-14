@@ -45,7 +45,7 @@ def quiero():
 	message = {
 				'from_email':'resultados@ivioapp.com',
 				'to': [{
-						'email':quiero_sub.items[0]['sender'],
+						'email':email.items[0]['user'],
 						'type': 'to'
 						}],
 				'subject':'resultados',

@@ -78,6 +78,7 @@ class Test_IvioEmail(unittest.TestCase):
 		item = ivio_email.items[0]
 		self.assertEqual(item['name'], 'shirt')
 		self.assertEqual(item['user'], 'jhack@stanford.edu')
+		# self.assertTrue(not 'address' in item)
 
 
 
