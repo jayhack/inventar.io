@@ -12,8 +12,9 @@ from inventario import Inventario
 from quiero import QuieroSub
 from tengo import TengoSub
 
+#=====[ Setup	]=====
 app = Flask(__name__)
-inventario = Inventario('/home/jayhack/inventar.db')
+inventario = Inventario()
 
 @app.route('/')
 def index():
