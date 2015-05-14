@@ -67,7 +67,7 @@ def tengo():
 	print email
 
 	#=====[ Step 2: insert items into db	]=====
-	inventario.put_tengos(email.items)
+	ivio.put_tengos(email.items)
 	return ''
 
 
