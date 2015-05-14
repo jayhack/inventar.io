@@ -28,3 +28,9 @@ class Inventario(object):
 		for item in tengo_sub.items:
 			self.orc_client.put(self.tengos, str(uuid.uuid4()), item)
 
+	def find_tengo_subs(self, ):
+		"""returns a list of tengos for the given quiero"""
+		search = porc.Search().query('item:%s' % quiero_sub)
+		pages = client.search(self.tengos, search)
+
+
