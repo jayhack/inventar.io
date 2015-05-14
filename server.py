@@ -9,8 +9,7 @@ import pprint
 from flask import Flask
 from flask import request
 from inventario import Inventario
-from quiero import QuieroSub
-from tengo import TengoSub
+from ivio_email import IvioEmail
 
 #=====[ Setup	]=====
 app = Flask(__name__)
@@ -30,31 +29,27 @@ def request_to_content(r):
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	"""Handles 'quiero' submissions"""
-	#=====[ Step 1: catch submission	]=====
-	sender, subject, body, date = request_to_content(request)
-	quiero_sub = QuieroSub(sender, subject, body, date)
-	print 'RECEIVED quiero: %s | %s | %s' % (sender, subject, date)
-	print quiero_sub
+	#=====[ Step 1: grab email	]=====
+	user, subject, body, date = request_to_content(request)
+	email = IvioEmail(user, subject, body, date)
+	print '\n(Quiero)'
+	print email
 
-	#=====[ Step 2: insert into db	]=====
-	inventario.insert_quiero(quiero_sub)
-
-	#=====[ Step 3: get relevant submissions	]=====
-	result = inventario.handle_quiero_sub(quiero_sub)
-	print result
+	#=====[ Step 2: insert each item into db	]=====
+	inventario.insert_quieros(email.items)
 	return ''
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	"""Handles 'tengo' submissions"""
 	#=====[ Step 1: catch submission	]=====
-	sender, subject, body, date = request_to_content(request)
-	tengo_sub = TengoSub(sender, subject, body, date)
-	print 'RECEIVED tengo: %s | %s | %s' % (sender, subject, date)
-	print tengo_sub
+	user, subject, body, date = request_to_content(request)
+	email = IvioEmail(user, subject, body, date)
+	print '\n(Tengo)'
+	print email
 
 	#=====[ Step 2: insert into db	]=====
-	inventario.insert_tengo(tengo_sub)
+	inventario.insert_tengos(email.items)
 	return ''
 
 

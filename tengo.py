@@ -28,9 +28,6 @@ class TengoSub(Submission):
 	def __init__(self, sender, subject, body, date=None):
 		super(TengoSub, self).__init__(sender, subject, body, date)
 
-	def parse_subject(self):
-		pass
-
 	@classmethod
 	def is_item_line(self, s):
 		"""returns true if string s is an item line"""

@@ -10,32 +10,29 @@ import pprint
 import mandrill
 import porc
 
-
 class Inventario(object):
 
 	mandrill_key = 'lpCk0T9_xDl5XMWS0CZ9iA'
 	orchestrate_key = '073ea3b8-7425-43f3-a603-450967822c6a'
-	quieros = 'quiero_submissions'
-	tengos = 'tengo_submissions'
+	quieros_collection = 'quiero_submissions'
+	tengos_collection = 'tengo_submissions'
 
 	def __init__(self):
 		"""connnects to Orchestrate"""
 		self.man_client = mandrill.Mandrill(self.mandrill_key)
 		self.orc_client = porc.Client(self.orchestrate_key, async=False)
 
-	def insert_quiero(self, quiero_sub):
-		"""inserts a quiero_sub into db"""
-		for item in quiero_sub.items:
-			self.orc_client.put(self.quieros, str(uuid.uuid4()), item)
+	def put(self, items, collection):
+		for item in items:
+			self.orc_client.put(collection, str(uuid.uuid4()), item)
 
-	def insert_tengo(self, tengo_sub):
-		"""inserts tengo sub into db"""
-		for item in tengo_sub.items:
-			self.orc_client.put(self.tengos, str(uuid.uuid4()), item)
+	def put_quieros(self, items):
+		return self.put(items, self.quieros_collection)
 
-	@classmethod
-	def page_to_dict(self, page):
-		"""converts orchestrate NoSQL pages to readable dicts"""
+	def put_tengos(self, items):
+		return self.put(items, self.tengos_collection)
+
+	def page_to_item(self, page):
 		return page['value']
 
 	def find_tengo_subs(self, item):

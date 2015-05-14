@@ -2,7 +2,13 @@
 Module: quiero
 ==============
 
-contains class QuieroEmail, representing submission asking for an item
+contains class QuieroEmail, representing submission asking for an item.
+Construction fills out self.items, which are formatted as follows:
+
+	{
+		'name':<name of sought item>,
+		'user':<user's email>
+	}
 
 Fields:
 -------
@@ -18,28 +24,42 @@ body:
 	...
 	*[ITEM NAME] $[PRICE] #[QUANTITY]
 """
+import re
 from submission import Submission
+
 class QuieroEmail(Submission):
 
-	def __init__(self, sender, subject, body, date=None):
-		super(QuieroSub, self).__init__(sender, subject, body, date)
+	def __init__(self, user, subject, body, date=None):
+		super(QuieroSub, self).__init__(user, subject, body, date)
 
-	def parse_subject(self):
-		pass
+	def extract_address(self, body):
+		matches = re.findall(r'@(.*)[$#*\n]', body)
+		if len(matches) == 0:
+			return None
+		return matches[0]
 
-	@classmethod
-	def extract_item_line(self, s):
-		"""item line -> item"""
-		return ' '.join(s.strip().lower().split(':')[1:]).strip()
+	def get_item_lines(self, body):
+		return filter(lambda l: l.startswith('*'), body.split('\n'))
 
-	def parse_body(self):
-		"""parses email subject/body to get self.item"""
-		self.items = []
-		for l in self.body.split('\n'):
-			if self.is_item_line(l):
-				item = self.extract_item_line(l)
-				self.items.append({
-									'sender':self.sender,
-									'item':item,
-									'date':self.date
-								})
+	def make_extractor(self, sym):
+		match_str = '%s(.*?)(\$|\#|\*|$)' % sym
+		return lambda x: re.findall(match_str, x)[0][0]
+	extract_name = self.make_extractor('\*')
+	extract_price = self.make_extractor('\$')
+	extract_qty = self.make_extractor('\#')
+
+	def extract_item(l, ser):
+		return 	{
+					'user':self.user,
+					'name':self.extract_name(l),
+				}
+
+	def parse(self, body):
+		"""body -> list of items"""
+		address = self.extract_address(body)
+		item_lines = self.get_item_lines(body)
+		items = [self.extract_item(l, address) for l in item_lines]
+		return items
+
+
+
