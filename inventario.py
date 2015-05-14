@@ -14,7 +14,7 @@ class Inventario(object):
 	quieros = 'quiero_submissions'
 	tengos = 'tengo_submissions'
 
-	def __init__(self, dbname):
+	def __init__(self):
 		"""connnects to Orchestrate"""
 		self.orc_client = porc.Client(self.orchestrate_key, async=False)
 
@@ -28,9 +28,22 @@ class Inventario(object):
 		for item in tengo_sub.items:
 			self.orc_client.put(self.tengos, str(uuid.uuid4()), item)
 
-	def find_tengo_subs(self, ):
+	@classmethod
+	def page_to_dict(self, page):
+		"""converts orchestrate NoSQL pages to readable dicts"""
+		return page['value']
+
+	def find_tengo_subs(self, item):
 		"""returns a list of tengos for the given quiero"""
-		search = porc.Search().query('item:%s' % quiero_sub)
-		pages = client.search(self.tengos, search)
+		search = porc.Search().query('value.item:%s' % item)
+		pages = self.orc_client.search(self.tengos, search)
+		return [self.page_to_dict(p) for p in pages.all()]
+
+	def find_quiero_subs(self, item):
+		"""returns a list of quieros matching given tengo"""
+		search = porc.Search().query('value.item:%s' % item)
+		pages = self.orc_client.search(self.quieros, search)
+		return [self.page_to_dict(p) for p in pages.all()]
+
 
 

@@ -5,6 +5,7 @@ Module: server
 Contains main flask application
 """
 import json
+import pprint
 from flask import Flask
 from flask import request
 from inventario import Inventario
@@ -36,6 +37,15 @@ def quiero():
 
 	#=====[ Step 2: insert into db	]=====
 	inventario.insert_quiero(quiero_sub)
+
+	#=====[ Step 3: get relevant submissions	]=====
+	tengo_subs = inventario.find_tengo_subs(quiero_sub.item)
+
+	#=====[ Step 4: print them out	]=====
+	print '=====[ RELEVANT TENGOS ]====='
+	for t in tengo_subs:
+		print t
+
 	return ''
 
 @app.route('/tengo', methods=['POST'])
