@@ -31,12 +31,12 @@ class Submission(object):
 		self.parse_body()
 
 	def __str__(self):
-		print '=====[ %s: %s ]=====' % (str(self.__class__), self.date)
-		print 'sender: %s' % self.sender
-		print 'items: '
-		for item in self.items:
-			print item
-		print
+		return """
+		=====[ %s: %s ]=====
+		sender: %s
+		items:
+		%s
+		""" % (str(self.__class__), self.date, self.sender, str(self.items))
 
 
 	@classmethod
