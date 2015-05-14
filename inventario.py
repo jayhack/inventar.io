@@ -5,27 +5,25 @@ Module: inventario
 Contains class inventario, which manages all interactions with
 the database
 """
-from database import DBClient
+import uuid
 
 class Inventario(object):
 
+	orchestrate_key = '073ea3b8-7425-43f3-a603-450967822c6a'
+	queros = 'quero_submissions'
+	tengos = 'tengo_submissions'
+
 	def __init__(self, dbname):
-		"""connnects go Gmail, Sqlite"""
-		self.db_client = DBClient(dbname)
+		"""connnects to Orchestrate"""
+		self.orc_client = porc.Client(self.orchestrate_key, async=False)
 
 	def insert_quiero(self, quiero_sub):
 		"""inserts a quiero_sub into db"""
-		self.db_client.insert_quiero(quiero_sub)
+		for item in quiero_sub.items:
+			self.orc_client.put(self.queros, str(uuid.uuid4()), item)
 
 	def insert_tengo(self, tengo_sub):
-		"""inserts tengo sub"""
-		self.db_client.insert_tengo(tengo_sub)
-
-	def get_requests(self):
-		"""returns a list of all requests"""
-		return self.db_client.get_requests()
-
-	def get_submissions(self):
-		"""returns a list of all submissions"""
-		return self.db_client.get_submissions()
+		"""inserts tengo sub into db"""
+		for item in tengo_sub.items:
+			self.orc_client.put(self.tengos, str(uuid.uuid4()), item)
 
