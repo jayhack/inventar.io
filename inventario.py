@@ -5,14 +5,12 @@ Module: inventario
 Contains class inventario, which manages all interactions with
 the database
 """
-from request import Request
 from database import DBClient
 
 class Inventario(object):
 
-	def __init__(self, gmail_username, gmail_password, dbname):
+	def __init__(self, dbname):
 		"""connnects go Gmail, Sqlite"""
-		self.gmail_client = GmailClient(gmail_username, gmail_password)
 		self.db_client = DBClient(dbname)
 
 	def insert_quiero(self, quiero_sub):
