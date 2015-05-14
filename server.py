@@ -40,15 +40,8 @@ def quiero():
 	inventario.insert_quiero(quiero_sub)
 
 	#=====[ Step 3: get relevant submissions	]=====
-	for item in quiero_sub.items:
-		tengo_subs = inventario.find_tengo_subs(item['item'])
-
-		#=====[ Step 4: print them out	]=====
-		print '=====[ RELEVANT TENGOS ]====='
-		for t in tengo_subs:
-			print t
-
-		return ''
+	inventario.handle_quiero(quiero_sub)
+	
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
