@@ -5,6 +5,7 @@ Module: email_client
 Contains class EmailClient, which is in charge of getting 
 emails and returning responses
 """
+import json
 import mandrill
 from ivio_email import IvioEmail
 
