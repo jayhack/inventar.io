@@ -10,7 +10,7 @@ import uuid
 class Inventario(object):
 
 	orchestrate_key = '073ea3b8-7425-43f3-a603-450967822c6a'
-	queros = 'quero_submissions'
+	quieros = 'quiero_submissions'
 	tengos = 'tengo_submissions'
 
 	def __init__(self, dbname):
@@ -20,7 +20,7 @@ class Inventario(object):
 	def insert_quiero(self, quiero_sub):
 		"""inserts a quiero_sub into db"""
 		for item in quiero_sub.items:
-			self.orc_client.put(self.queros, str(uuid.uuid4()), item)
+			self.orc_client.put(self.quieros, str(uuid.uuid4()), item)
 
 	def insert_tengo(self, tengo_sub):
 		"""inserts tengo sub into db"""
