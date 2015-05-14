@@ -41,7 +41,8 @@ def quiero():
 
 	#=====[ Step 3: get relevant submissions	]=====
 	inventario.handle_quiero(quiero_sub)
-	
+
+	return ''
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
