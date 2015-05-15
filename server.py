@@ -12,6 +12,7 @@ from flask import send_from_directory
 from mail import IvioMail, IvioMailClient
 from dbclient import DBClient
 from inventory import InventoryEmail
+from yikyak import YikYakEmail
 import wikipedia
 
 #=====[ Setup	]=====
