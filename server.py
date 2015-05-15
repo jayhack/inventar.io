@@ -6,6 +6,7 @@ Contains main flask application
 import os
 import json
 import pprint
+import re
 from flask import Flask
 from flask import request
 from flask import send_from_directory
@@ -137,6 +138,7 @@ def yikyakpost():
 	result = ""
 	for post in posts:
 		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
+	
 	for vote in votes:
 		post_id = re.findall(r'@(\d+)')[0]
 		change = 0;
