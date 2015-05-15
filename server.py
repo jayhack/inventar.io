@@ -130,7 +130,7 @@ def yikyakpost():
 
 	result = ""
 	for post in posts:
-		result = result + "Post: " + json.dumps(post['post']) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
+		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
 	for vote in votes:
 		result = result + vote + '\n'
 	mail_client.send_message(
