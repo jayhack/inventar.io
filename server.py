@@ -24,7 +24,7 @@ def index():
 @app.route('/wiki', methods=['POST'])
 def wiki():
 	"""returns wikipedia article"""
-	print "GOT A WIKIPEDIA REQUEST (not supported yet.)"
+	print "=====[ GOT A WIKIPEDIA REQUEST ]====="
 	return ''
 
 @app.route('/quiero', methods=['POST'])
