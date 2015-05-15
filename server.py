@@ -138,22 +138,22 @@ def yikyakpost():
 	result = ""
 	
 	
-	for vote in votes:
-		post_id = re.findall(r'@([a-zA-Z0-9-]+)', vote)
-		if(len(post_id) == 0):
-			continue
-		post_id = post_id[0]
-		print("post id after retrieving" + str(post_id))
-		post = dbclient.search('yikyak','unique_id',post_id)
-		print("result of post: " + pprint.pformat(post))
+	# for vote in votes:
+	# 	post_id = re.findall(r'@([a-zA-Z0-9-]+)', vote)
+	# 	if(len(post_id) == 0):
+	# 		continue
+	# 	post_id = post_id[0]
+	# 	print("post id after retrieving" + str(post_id))
+	# 	post = dbclient.search('yikyak','unique_id',post_id)
+	# 	print("result of post: " + pprint.pformat(post))
 
-		change = 0;
-		if "+1" in vote:
-			change = 1
-		elif "-1" in vote:
-			change = -1
-		post['votes'] = post['votes'] + change
-		dbclient.update('yikyak',post['unique_id'],post)
+	# 	change = 0;
+	# 	if "+1" in vote:
+	# 		change = 1
+	# 	elif "-1" in vote:
+	# 		change = -1
+	# 	post['votes'] = post['votes'] + change
+	# 	dbclient.update('yikyak',post['unique_id'],post)
 
 		# result = result + "ID: " + post_id + '\n' + "Change by: " + str(change) + '\n\n'
 
