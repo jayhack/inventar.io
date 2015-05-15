@@ -139,9 +139,9 @@ def yikyakpost():
 	
 	
 	for vote in votes:
-		post_id = re.findall(r'@(\d+)', vote)
+		post_id = re.findall(r'@([a-zA-Z0-9-]*)', vote)
 		if(len(post_id) == 0):
-			pass
+			continue
 		post_id = post_id[0]
 		post = dbclient.find('yikyak',post['unique_id'])
 
