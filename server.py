@@ -143,7 +143,7 @@ def yikyakpost():
 		if(len(post_id) == 0):
 			pass
 		post_id = post_id[0]
-		post = dbclient.get('yikyak',post['unique_id'])
+		post = dbclient.find('yikyak',post['unique_id'])
 
 		change = 0;
 		if "+1" in vote:
