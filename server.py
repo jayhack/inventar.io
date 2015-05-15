@@ -21,13 +21,17 @@ email_client = EmailClient()
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
+
+@app.route('/wiki', methods=['POST'])
+def wiki():
+	"""returns wikipedia article"""
+	return ''
+
 @app.route('/quiero', methods=['POST'])
 def quiero():
 	"""Handles 'quiero' submissions"""
 	#=====[ Step 1: grab email	]=====
 	email = email_client.request_to_email(request)
-	print '\n(Quiero)'
-	print email
 
 	#=====[ Step 2: insert items into db	]=====
 	if len(email.items) < 1:
@@ -48,8 +52,6 @@ def tengo():
 	"""Handles 'tengo' submissions"""
 	#=====[ Step 1: catch submission	]=====
 	email = email_client.request_to_email(request)
-	print '\n(Tengo)'
-	print email
 
 	#=====[ Step 2: insert items into db	]=====
 	ivio.put_tengos(email.items)

@@ -52,6 +52,6 @@ class EmailClient(object):
 												message=message,
 												async=False, 
 												ip_pool='Main Pool'
-												)
+											)
 		return result
 

@@ -24,7 +24,7 @@ class Inventario(object):
 			self.orc_client.put(collection, str(uuid.uuid4()), item)
 
 	def put_quieros(self, items):
-		return self.put(items, 'quero')
+		return self.put(items, 'quiero')
 
 	def put_tengos(self, items):
 		return self.put(items, 'tengo')
