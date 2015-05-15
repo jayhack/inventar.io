@@ -66,6 +66,74 @@ def wiki():
 
 
 
+################################################################################
+########################[ YIK YAK FEED ]########################################
+################################################################################
+
+@app.route('/yikyakfeed', methods=['POST'])
+def yikyakfeed():
+	"""
+	Hook: yikyakfeed
+	==========
+	returns yikyakfeed
+	"""
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_mail(request)
+
+	#=====[ Step 2: get all posts from yikyak collection	]=====
+	posts = dbclient.list("yikyakfeed")
+
+	#=====[ Step 3: mail back the posts	]=====
+
+	for post in posts:
+		mail_client.send_message(
+									mail.user,
+									'post',
+									pprint.pformat(post)								
+								)
+
+	return ''
+
+
+################################################################################
+########################[ YIK YAK FEED ]########################################
+################################################################################
+
+@app.route('/yikyakpost', methods=['POST'])
+def yikyakpost():
+	"""
+	Hook: yikyakpost
+	==========
+	posts to yikyak post
+	"""
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_mail(request)
+	postings = YikYakEmail(email)
+
+	#=====[ Step 2: post to yikyak and upvote	]=====
+
+	post = postings.post
+	if(post):
+		dbclient.put('yikyak',post)
+	votes = postings.votes
+	for vote in votes:
+		# dbclient.search('yikyak','')
+
+
+	posts = dbclient.list("yikyakfeed")
+
+	#=====[ Step 3: mail back the posts	]=====
+
+	for post in posts:
+		mail_client.send_message(
+									mail.user,
+									'post',
+									pprint.pformat(post)								
+								)
+
+	return ''
+
+
 
 ################################################################################
 ####################[ INVENTORY SEARCH ]########################################
