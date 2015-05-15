@@ -41,7 +41,7 @@ def quiero():
 	in database and returns results if there are any
 	"""
 	#=====[ Step 1: grab email	]=====
-	mail = mail_client.request_to_email(request)
+	mail = mail_client.request_to_mail(request)
 	quiero = InventoryEmail(mail)
 
 	#=====[ Step 2: insert items into 'quiero' collection	]=====
@@ -62,7 +62,7 @@ def quiero():
 def tengo():
 	"""Handles 'tengo' submissions"""
 	#=====[ Step 1: grab email	]=====
-	mail = mail_client.request_to_email(request)
+	mail = mail_client.request_to_mail(request)
 	tengo = InventoryEmail(mail)
 
 	#=====[ Step 2: insert items into db	]=====
