@@ -136,18 +136,24 @@ def yikyakpost():
 
 
 	result = ""
-	for post in posts:
-		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
+	
 	
 	for vote in votes:
 		post_id = re.findall(r'@(\d+)', vote)[0]
+		post = dbclient.get('yikyak',post['unique_id'])
+
 		change = 0;
 		if "+1" in vote:
 			change = 1
 		elif "-1" in vote:
 			change = -1
-		result = result + "ID: " + post_id + '\n' + "Change by: " + str(change) + '\n\n'
+		post['votes'] = post['votes'] + change
+		dbclient.update('yikyak',post['unique_id'],post)
 
+		# result = result + "ID: " + post_id + '\n' + "Change by: " + str(change) + '\n\n'
+
+	for post in posts:
+		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
 
 	#=====[ Step 4: mail back the posts	]=====
 

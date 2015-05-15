@@ -21,6 +21,10 @@ class DBClient(object):
 			item['unique_id'] = str(uuid.uuid4())
 			self.orc_client.put(collection, item['unique_id'], item) 
 
+	def update(self, collection, key, item):
+		"""updates a particular item in specified collection on orchestrate"""
+		self.orc_client.put(collection, key, item)
+
 	def page_to_item(self, page):
 		"""converts NoSQL pages to the items that were inserted"""
 		return page['value']
@@ -35,4 +39,9 @@ class DBClient(object):
 		"""returns all items in the collection"""
 		pages = self.orc_client.list(collection)
 		return [self.page_to_item(p) for p in pages.all()]
+
+	def find(self, collection, key):
+		""" searches 'collection' for specific item with given key"""
+		page = self.orc_client.search(collection, key)
+		return self.page_to_item(p)
 
