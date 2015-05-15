@@ -139,11 +139,12 @@ def yikyakpost():
 	
 	
 	for vote in votes:
-		post_id = re.findall(r'@([a-zA-Z0-9-]*)', vote)
+		post_id = re.findall(r'@([a-zA-Z0-9-]+)', vote)
 		if(len(post_id) == 0):
 			continue
+		print(post_id)
 		post_id = post_id[0]
-		post = dbclient.find('yikyak',post['unique_id'])
+		post = dbclient.find('yikyak',post_id)
 
 		change = 0;
 		if "+1" in vote:
