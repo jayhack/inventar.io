@@ -19,7 +19,7 @@ class DBClient(object):
 		"""puts list of items in specified collection on orchestrate"""
 		for item in items:
 			item['unique_id'] = str(uuid.uuid4())
-			self.orc_client.put(collection, itme['unique_id'], item) 
+			self.orc_client.put(collection, item['unique_id'], item) 
 
 	def page_to_item(self, page):
 		"""converts NoSQL pages to the items that were inserted"""

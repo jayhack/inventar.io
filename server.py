@@ -88,11 +88,15 @@ def yikyakfeed():
 	#=====[ Step 2: get all posts from yikyak collection	]=====
 	posts = dbclient.list("yikyak")
 
-	#=====[ Step 3: mail back the posts	]=====
+	#=====[ Step 3: Configure posts	]=====
+
 
 	result = ""
 	for post in posts:
-		result = result + "Post: " + json.dumps(post['post']) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
+		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
+
+	#=====[ Step 4: mail back the posts	]=====
+
 	mail_client.send_message(
 								mail.user,
 								'post',
@@ -125,14 +129,27 @@ def yikyakpost():
 		dbclient.put('yikyak', [post])
 	votes = postings.votes
 	posts = dbclient.list("yikyak")
+	
 
-	#=====[ Step 3: mail back the posts	]=====
+	#=====[ Step 3: configure posts and votes	]=====
+
 
 	result = ""
 	for post in posts:
 		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
 	for vote in votes:
-		result = result + vote + '\n'
+		post_id = re.findall(r'@(\d+)')[0]
+		change = 0;
+		if "+1" in vote:
+			change = 1
+		elif "-1" in vote:
+			change = -1
+		result = result + "ID: " + post_id + '\n' + "Change by: " + change + '\n\n'
+
+
+	#=====[ Step 4: mail back the posts	]=====
+
+
 	mail_client.send_message(
 								mail.user,
 								'post',
