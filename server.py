@@ -146,7 +146,7 @@ def yikyakpost():
 			change = 1
 		elif "-1" in vote:
 			change = -1
-		result = result + "ID: " + post_id + '\n' + "Change by: " + change + '\n\n'
+		result = result + "ID: " + post_id + '\n' + "Change by: " + str(change) + '\n\n'
 
 
 	#=====[ Step 4: mail back the posts	]=====
