@@ -21,10 +21,10 @@ email_client = EmailClient()
 def index():
 	return 'Hello, world! Welcome to inventar.io'
 
-
 @app.route('/wiki', methods=['POST'])
 def wiki():
 	"""returns wikipedia article"""
+	print "GOT A WIKIPEDIA REQUEST"
 	return ''
 
 @app.route('/quiero', methods=['POST'])
