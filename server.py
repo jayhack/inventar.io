@@ -13,6 +13,7 @@ from flask import send_from_directory
 from mail import IvioMail, IvioMailClient
 from dbclient import DBClient
 from inventory import InventoryEmail
+import wikipedia
 
 #=====[ Setup	]=====
 base_dir = os.path.split(os.path.realpath(__file__))[0]
@@ -30,6 +31,27 @@ def index():
 	Returns landing page
 	"""
 	return send_from_directory(static_dir, 'index.html')
+
+@app.route('/wiki', methods=['POST'])
+def wiki():
+	"""
+	Hook: wiki
+	==========
+	returns top wikipedia search from subject line
+	"""
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_mail(request)
+
+	#=====[ Step 2: search wikipedia	]=====
+	result = wikipedia.search(mail.subject.strip())
+
+	#=====[ Step 3: mail back the message	]=====
+	mail_client.send_message(
+								mail.user,
+								'resultados',
+								pprint.pformat(result)								
+							)
+
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
@@ -52,7 +74,7 @@ def quiero():
 
 	#=====[ Step 4: mail back	]=====
 	mail_client.send_message(
-								quiero.items[0]['user'], 
+								mail.user,
 								'resultados',
 								pprint.pformat(matches)
 							)
