@@ -17,19 +17,47 @@ app = Flask(__name__)
 ivio = Inventario()
 email_client = EmailClient()
 
+def catches_email(f, *args, **kwargs):
+	"""
+	Decorator: catch_email
+	----------------------
+	sets variable 'email' to an ivio_email
+	"""
+	def g():
+		email = email_client.request_to_email(request)
+		return f(email, *args, **kwargs)
+	return g
+
 @app.route('/')
 def index():
+	"""
+	Hook: index
+	===========
+	Returns landing page
+	"""
 	return 'Hello, world! Welcome to inventar.io'
 
 @app.route('/wiki', methods=['POST'])
-def wiki():
-	"""returns wikipedia article"""
+@catches_email
+def wiki(email):
+	"""
+	Hook: wiki
+	==========
+	Returns text of requested wikipedia article
+	"""
 	print "GOT A WIKIPEDIA REQUEST (not supported yet.)"
+	print "email.address"
 	return ''
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
-	"""Handles 'quiero' submissions"""
+	"""
+	Hook: quiero
+	============
+
+	Allows users to post items they *want* to 'quiero' collection
+	in database and returns results if there are any
+	"""
 	#=====[ Step 1: grab email	]=====
 	email = email_client.request_to_email(request)
 

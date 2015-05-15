@@ -1,5 +1,5 @@
 """
-Module: submission
+Module: ivio_email
 ==================
 
 Contains abstract class IvioEmail, which implements abstract parsing
