@@ -131,7 +131,7 @@ def yikyakpost():
 	result = ""
 	for post in posts:
 		result = result + pprint.pformat(post) + '\n'
-	for vote in votes
+	for vote in votes:
 		result = result + vote + '\n'
 	mail_client.send_message(
 								mail.user,
