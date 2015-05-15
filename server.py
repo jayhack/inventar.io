@@ -140,7 +140,7 @@ def yikyakpost():
 		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
 	
 	for vote in votes:
-		post_id = re.findall(r'@(\d+)')[0]
+		post_id = re.findall(r'@(\d+)', vote)[0]
 		change = 0;
 		if "+1" in vote:
 			change = 1
