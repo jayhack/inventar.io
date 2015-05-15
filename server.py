@@ -19,7 +19,7 @@ email_client = EmailClient()
 
 @app.route('/')
 def index():
-	return 'Hello, world! Welcome to inventar.io'
+	return "Inventar.io Landing Page"
 
 @app.route('/wiki', methods=['POST'])
 def wiki():
