@@ -81,7 +81,7 @@ def yikyakfeed():
 	mail = mail_client.request_to_mail(request)
 
 	#=====[ Step 2: get all posts from yikyak collection	]=====
-	posts = dbclient.list("yikyakfeed")
+	posts = dbclient.list("yikyak")
 
 	#=====[ Step 3: mail back the posts	]=====
 
