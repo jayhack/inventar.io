@@ -51,6 +51,7 @@ def wiki():
 								'resultados',
 								pprint.pformat(result)								
 							)
+	return ''
 
 
 @app.route('/quiero', methods=['POST'])
