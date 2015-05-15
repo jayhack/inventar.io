@@ -120,7 +120,7 @@ def yikyakpost():
 		# dbclient.search('yikyak','')
 
 
-	posts = dbclient.list("yikyakfeed")
+	posts = dbclient.list("yikyak")
 
 	#=====[ Step 3: mail back the posts	]=====
 
