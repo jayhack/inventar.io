@@ -116,8 +116,9 @@ def yikyakpost():
 	if(post):
 		dbclient.put('yikyak',post)
 	votes = postings.votes
-	for vote in votes:
+	# for vote in votes:
 		# dbclient.search('yikyak','')
+		# pass
 
 
 	posts = dbclient.list("yikyak")
