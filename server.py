@@ -52,7 +52,7 @@ def quiero():
 
 	#=====[ Step 4: mail back	]=====
 	mail_client.send_message(
-								mail.items[0]['user'], 
+								quiero.items[0]['user'], 
 								'resultados',
 								pprint.pformat(matches)
 							)
