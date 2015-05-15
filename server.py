@@ -92,7 +92,7 @@ def yikyakfeed():
 
 	result = ""
 	for post in posts:
-		result = result + pprint.pformat(post) + '\n'
+		result = result + "Post: " + JSON.stringify(post['post']) + '\n' + "Votes: " + JSON.stringify(post['votes']) + '\n\n'
 	mail_client.send_message(
 								mail.user,
 								'post',
@@ -130,7 +130,7 @@ def yikyakpost():
 
 	result = ""
 	for post in posts:
-		result = result + pprint.pformat(post) + post.key + '\n\n'
+		result = result + "Post: " + JSON.stringify(post['post']) + '\n' + "Votes: " + JSON.stringify(post['votes']) + '\n\n'
 	for vote in votes:
 		result = result + vote + '\n'
 	mail_client.send_message(
