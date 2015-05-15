@@ -20,13 +20,13 @@ class YikYakEmail(object):
 		"""
 
 		self.votes = self.get_vote_lines(mail.body)
-		self.post = self.extract_post(mail.body)
+		self.post = self.extract_post(mail)
 		# address = self.extract_address(mail.body)
 		# item_lines = self.get_item_lines(mail.body)
 		# self.items = [self.get_item(l, mail.user, address, mail.date) for l in item_lines]
 
-	def extract_post(self, body):
-		matches = re.findall(r'--.*--', body)
+	def extract_post(self, mail):
+		matches = re.findall(r'--.*--', mail.body)
 		if len(matches) == 0:
 			return None
 		return {
