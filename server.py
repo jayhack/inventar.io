@@ -115,7 +115,7 @@ def yikyakpost():
 	mail = mail_client.request_to_mail(request)
 	if mail is None:
 		return ''
-	postings = YikYakEmail(email)
+	postings = YikYakEmail(mail)
 
 	#=====[ Step 2: post to yikyak and upvote	]=====
 	post = postings.post
