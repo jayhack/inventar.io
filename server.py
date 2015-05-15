@@ -126,12 +126,12 @@ def yikyakpost():
 
 	#=====[ Step 3: mail back the posts	]=====
 
-	for post in posts:
-		mail_client.send_message(
-									mail.user,
-									'post',
-									pprint.pformat(post)								
-								)
+	# for post in posts:
+	mail_client.send_message(
+								mail.user,
+								'post',
+								pprint.pformat(post for post in posts)								
+							)
 
 	return ''
 
