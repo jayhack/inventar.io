@@ -43,7 +43,7 @@ def wiki():
 	mail = mail_client.request_to_mail(request)
 
 	#=====[ Step 2: search wikipedia	]=====
-	result = wikipedia.search(mail.subject.strip())
+	result = wikipedia.summary(mail.subject.strip())
 
 	#=====[ Step 3: mail back the message	]=====
 	mail_client.send_message(
