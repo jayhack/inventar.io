@@ -48,7 +48,7 @@ def quiero():
 	dbclient.put('quiero', quiero.items)
 
 	#=====[ Step 3: find matches and mail back	]=====
-	matches = {x['name']:dbclient.search('tengo', 'name', x['name'])}
+	matches = {x['name']:dbclient.search('tengo', 'name', x['name']) for x in quiero.items}
 
 	#=====[ Step 4: mail back	]=====
 	mail_client.send_message(
