@@ -33,6 +33,8 @@ class IvioMailClient(object):
 		#=====[ Step 1: Filter for mandrill	]=====
 		if not 'mandrill_events' in request.form:
 			return None
+		elif len(request.form['mandrill_events']) == 0:
+			return None
 
 		#=====[ Step 2: extract content	]=====
 		d = json.loads(request.form['mandrill_events'])[0]

@@ -53,6 +53,8 @@ def wiki():
 	"""
 	#=====[ Step 1: grab email	]=====
 	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
 
 	#=====[ Step 2: search wikipedia	]=====
 	result = wikipedia.summary(mail.subject.strip())
@@ -80,6 +82,8 @@ def yikyakfeed():
 	"""
 	#=====[ Step 1: grab email	]=====
 	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
 
 	#=====[ Step 2: get all posts from yikyak collection	]=====
 	posts = dbclient.list("yikyak")
@@ -109,6 +113,8 @@ def yikyakpost():
 	"""
 	#=====[ Step 1: grab email	]=====
 	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
 	postings = YikYakEmail(email)
 
 	#=====[ Step 2: post to yikyak and upvote	]=====
@@ -146,6 +152,8 @@ def quiero():
 	"""
 	#=====[ Step 1: grab email	]=====
 	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
 	quiero = InventoryEmail(mail)
 
 	#=====[ Step 2: insert items into 'quiero' collection	]=====
@@ -167,6 +175,8 @@ def tengo():
 	"""Handles 'tengo' submissions"""
 	#=====[ Step 1: grab email	]=====
 	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
 	tengo = InventoryEmail(mail)
 
 	#=====[ Step 2: insert items into db	]=====
