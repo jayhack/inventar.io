@@ -90,12 +90,14 @@ def yikyakfeed():
 
 	#=====[ Step 3: mail back the posts	]=====
 
+	result = ""
 	for post in posts:
-		mail_client.send_message(
-									mail.user,
-									'post',
-									pprint.pformat(post)								
-								)
+		result = result + pprint.pformat(post) + '\n'
+	mail_client.send_message(
+								mail.user,
+								'post',
+								result								
+							)
 
 	return ''
 
@@ -126,10 +128,11 @@ def yikyakpost():
 
 	#=====[ Step 3: mail back the posts	]=====
 
-	# for post in posts:
 	result = ""
 	for post in posts:
-		result = result + pprint.pformat(post)
+		result = result + pprint.pformat(post) + '\n'
+	for vote in votes
+		result = result + vote + '\n'
 	mail_client.send_message(
 								mail.user,
 								'post',
