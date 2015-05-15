@@ -1,7 +1,6 @@
 """
 Module: server
 ==============
-
 Contains main flask application
 """
 import os
