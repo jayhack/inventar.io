@@ -7,14 +7,14 @@ emails and returning responses
 """
 import json
 import mandrill
+from secrets import MANDRILL_API_KEY
 from ivio_email import IvioEmail
+
 
 class EmailClient(object):
 
-	mandrill_key = 'lpCk0T9_xDl5XMWS0CZ9iA'
-
 	def __init__(self):
-		self.man_client = mandrill.Mandrill(self.mandrill_key)
+		self.man_client = mandrill.Mandrill(MANDRILL_API_KEY)
 
 	################################################################################
 	####################[ GETTING EMAIL  ]##########################################

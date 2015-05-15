@@ -2,5 +2,11 @@
 *.pyc
 *.pkl
 *.json
-*.ipynb
 *~
+
+#=====[ iPython Notebook ]=====
+.ipynb_checkpoints
+*.ipynb
+
+#=====[ Secrets ]=====
+secrets.py

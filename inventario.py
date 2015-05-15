@@ -9,14 +9,13 @@ import uuid
 import pprint
 import mandrill
 import porc
+from secrets import ORCHESTRATE_API_KEY
+
 
 class Inventario(object):
 
-	orchestrate_key = '073ea3b8-7425-43f3-a603-450967822c6a'
-
 	def __init__(self):
-		"""connnects to Orchestrate"""
-		self.orc_client = porc.Client(self.orchestrate_key, async=False)
+		self.orc_client = porc.Client(ORCHESTRATE_API_KEY, async=False)
 
 	def put(self, items, collection):
 		"""puts specified item in specified collection on orchestrate"""
