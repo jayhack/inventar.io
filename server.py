@@ -132,14 +132,17 @@ def yikyakpost():
 	posts = dbclient.list("yikyak")
 	
 
-	#=====[ Step 3: configure posts and votes	]=====
+	#=====[ Step 3: configure update votes	]=====
 
 
 	result = ""
 	
 	
 	for vote in votes:
-		post_id = re.findall(r'@(\d+)', vote)[0]
+		post_id = re.findall(r'@(\d+)', vote)
+		if(len(post_id) == 0):
+			pass
+		post_id = post_id[0]
 		post = dbclient.get('yikyak',post['unique_id'])
 
 		change = 0;
@@ -152,10 +155,13 @@ def yikyakpost():
 
 		# result = result + "ID: " + post_id + '\n' + "Change by: " + str(change) + '\n\n'
 
+	#=====[ Step 4: configure posts	]=====
+
+
 	for post in posts:
 		result = result + "ID: " + post['unique_id'] + '\n' + "Post: " + json.dumps(post['post'].strip('"').strip('-')) + '\n' + "Votes: " + json.dumps(post['votes']) + '\n\n'
 
-	#=====[ Step 4: mail back the posts	]=====
+	#=====[ Step 5: mail back the posts	]=====
 
 
 	mail_client.send_message(
