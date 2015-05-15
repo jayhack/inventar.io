@@ -43,5 +43,5 @@ class DBClient(object):
 	def find(self, collection, key):
 		""" searches 'collection' for specific item with given key"""
 		page = self.orc_client.search(collection, key)
-		return self.page_to_item(page)
+		return self.page_to_item(page.next())
 
