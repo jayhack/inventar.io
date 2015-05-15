@@ -24,6 +24,6 @@ class DBClient(object):
 		"""searches 'collection' for items with specified key/value pair"""
 		search = porc.Search().query('value.%s:%s' % (key, value))
 		pages = self.orc_client.search(collection, search)
-		return [page['value'] for p in pages.all()]
+		return [p['value'] for p in pages.all()]
 
 
