@@ -4,29 +4,23 @@ Module: server
 
 Contains main flask application
 """
+import os
 import json
 import pprint
 from flask import Flask
 from flask import request
+from flask import send_from_directory
 from inventario import Inventario
 from email_client import EmailClient
 from ivio_email import IvioEmail
 
 #=====[ Setup	]=====
-app = Flask(__name__)
+base_dir = os.path.split(os.path.realpath(__file__))[0]
+static_dir = os.path.join(base_dir, 'static')
+assets_dir = os.path.join(static_dir, 'assets')
+app = Flask(__name__, static_folder=assets_dir)
 ivio = Inventario()
 email_client = EmailClient()
-
-def catches_email(f, *args, **kwargs):
-	"""
-	Decorator: catch_email
-	----------------------
-	sets variable 'email' to an ivio_email
-	"""
-	def g():
-		email = email_client.request_to_email(request)
-		return f(email, *args, **kwargs)
-	return g
 
 @app.route('/')
 def index():
@@ -35,14 +29,9 @@ def index():
 	===========
 	Returns landing page
 	"""
-	return """\n
-Inventario Landing Page
-=======================
-Version: 0.1
-"""
+	return send_from_directory(static_dir, 'index.html')
 
 @app.route('/wiki', methods=['POST'])
-@catches_email
 def wiki(email):
 	"""
 	Hook: wiki
@@ -91,4 +80,4 @@ def tengo():
 
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
