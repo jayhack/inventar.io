@@ -111,16 +111,10 @@ def yikyakpost():
 	postings = YikYakEmail(email)
 
 	#=====[ Step 2: post to yikyak and upvote	]=====
-
 	post = postings.post
 	if(post):
-		dbclient.put('yikyak',post)
+		dbclient.put('yikyak', [post])
 	votes = postings.votes
-	# for vote in votes:
-		# dbclient.search('yikyak','')
-		# pass
-
-
 	posts = dbclient.list("yikyak")
 
 	#=====[ Step 3: mail back the posts	]=====
