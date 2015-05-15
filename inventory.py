@@ -1,28 +1,26 @@
 """
-Module: ivio_email
-==================
+Module: inventory
+=================
 
-Contains abstract class IvioEmail, which implements abstract parsing
-the contents away and just fills self.items
+Contains abstract class InventoryEmail, which parses IvioMail to get contents
+of inventory request
 """
 import re
 import pprint
 from datetime import datetime
+from mail import IvioMail
 
-class IvioEmail(object):
+class InventoryEmail(object):
 
-	def __init__(self, user, subject, body, date):
+	def __init__(self, mail):
 		"""
 		Args:
 		-----
-		- user: email address of sender
-		- subject: subject of email
-		- body: body (text) of email
-		- date: date of email
+		- mail: IvioMail object
 		"""
-		address = self.extract_address(body)
-		item_lines = self.get_item_lines(body)
-		self.items = [self.get_item(l, user, address, date) for l in item_lines]
+		address = self.extract_address(mail.body)
+		item_lines = self.get_item_lines(mail.body)
+		self.items = [self.get_item(l, mail.user, address, mail.date) for l in item_lines]
 
 	def extract_address(self, body):
 		matches = re.findall(r'@(.*)[$#*\n]', body)

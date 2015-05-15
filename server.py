@@ -10,17 +10,17 @@ import pprint
 from flask import Flask
 from flask import request
 from flask import send_from_directory
-from inventario import Inventario
-from email_client import EmailClient
-from ivio_email import IvioEmail
+from mail import IvioMail, IvioMailClient
+from dbclient import DBClient
+from inventory import InventoryEmail
 
 #=====[ Setup	]=====
 base_dir = os.path.split(os.path.realpath(__file__))[0]
 static_dir = os.path.join(base_dir, 'static')
 assets_dir = os.path.join(static_dir, 'assets')
 app = Flask(__name__, static_folder=assets_dir)
-ivio = Inventario()
-email_client = EmailClient()
+dbclient = DBClient()
+mail_client = IvioMailClient()
 
 @app.route('/')
 def index():
@@ -30,17 +30,6 @@ def index():
 	Returns landing page
 	"""
 	return send_from_directory(static_dir, 'index.html')
-
-@app.route('/wiki', methods=['POST'])
-def wiki(email):
-	"""
-	Hook: wiki
-	==========
-	Returns text of requested wikipedia article
-	"""
-	print "GOT A WIKIPEDIA REQUEST (not supported yet.)"
-	print "email.address"
-	return ''
 
 @app.route('/quiero', methods=['POST'])
 def quiero():
@@ -52,30 +41,42 @@ def quiero():
 	in database and returns results if there are any
 	"""
 	#=====[ Step 1: grab email	]=====
-	email = email_client.request_to_email(request)
+	mail = mail_client.request_to_email(request)
+	quiero = InventoryEmail(mail)
 
-	#=====[ Step 2: insert items into db	]=====
-	if len(email.items) < 1:
-		return ''
-	ivio.put_quieros(email.items)
+	#=====[ Step 2: insert items into 'quiero' collection	]=====
+	dbclient.put('quiero', quiero.items)
 
 	#=====[ Step 3: find matches and mail back	]=====
-	matches = {x['name']:ivio.find_tengos(x['name']) for x in email.items}
-	user = email.items[0]['user']
-	subject = 'resultados'
-	body = pprint.pformat(matches)
-	email_client.send_message(user, subject, body)
+	matches = {x['name']:dbclient.search('tengo', 'name', x['name'])}
 
+	#=====[ Step 4: mail back	]=====
+	mail_client.send_message(
+								mail.items[0]['user'], 
+								'resultados',
+								pprint.pformat(matches)
+							)
 	return ''
 
 @app.route('/tengo', methods=['POST'])
 def tengo():
 	"""Handles 'tengo' submissions"""
-	#=====[ Step 1: catch submission	]=====
-	email = email_client.request_to_email(request)
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_email(request)
+	tengo = InventoryEmail(mail)
 
 	#=====[ Step 2: insert items into db	]=====
-	ivio.put_tengos(email.items)
+	dbclient.put('tengo', tengo.items)
+
+	#=====[ Step 3: find/send matches	]=====
+	for item in tengo.items:
+		matches = dbclient.search('quiero', 'name', item['name'])
+		for match in matches:
+			mail_client.send_message(
+										match['user'],
+										'resultados',
+										pprint.pformat(item)
+									)
 	return ''
 
 

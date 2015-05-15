@@ -1,17 +1,24 @@
 """
-Module: email_client
-====================
+Module: mail
+============
 
-Contains class EmailClient, which is in charge of getting 
-emails and returning responses
+Contains classes IvioMail, containing info on single emails, and 
+IvioMailClient, providing access to email infrastructure
 """
 import json
 import mandrill
 from secrets import MANDRILL_API_KEY
-from ivio_email import IvioEmail
+
+class IvioMail(object):
+
+	def __init__(self, sender, subject, body, date):
+		self.user = sender
+		self.subject = subject
+		self.body = body
+		self.date = date
 
 
-class EmailClient(object):
+class IvioMailClient(object):
 
 	def __init__(self):
 		self.man_client = mandrill.Mandrill(MANDRILL_API_KEY)
@@ -21,19 +28,16 @@ class EmailClient(object):
 	################################################################################
 
 	@classmethod
-	def request_to_content(self, request):
-		"""flask.Request -> sender, subject, body, date"""
-		d = json.loads(request.form['mandrill_events'])[0]
-		date = str(d['ts'])
-		msg = d['msg']
-		return msg['from_email'], msg['subject'], msg['text'], date
+	def request_to_mail(self, request):
+		"""flask.Request -> Mail"""
+		#=====[ Step 1: Filter for mandrill	]=====
+		if not 'mandrill_events' in request.form:
+			return None
 
-	@classmethod 
-	def request_to_email(self, request):
-		"""flask.Request -> IvioEmail"""
-		user, subject, body, date = self.request_to_content(request)
-		ivio_email = IvioEmail(user, subject, body, date)
-		return ivio_email
+		#=====[ Step 2: extract content	]=====
+		d = json.loads(request.form(['mandrill_events']))[0]
+		msg = d['msg']
+		return IvioMail(msg['from_email'], msg['subject'], msg['text'], str(d['ts']))
 
 
 	################################################################################
