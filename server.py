@@ -35,7 +35,11 @@ def index():
 	===========
 	Returns landing page
 	"""
-	return 'Hello, world! Welcome to inventar.io'
+	return """\n
+Inventario Landing Page
+=======================
+Version: 0.1
+"""
 
 @app.route('/wiki', methods=['POST'])
 @catches_email
