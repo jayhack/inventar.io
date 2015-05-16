@@ -15,6 +15,7 @@ from dbclient import DBClient
 from inventory import InventoryEmail
 from yikyak import YikYakEmail
 import wikipedia
+import forecastio
 
 #=====[ Setup	]=====
 base_dir = os.path.split(os.path.realpath(__file__))[0]
@@ -37,6 +38,37 @@ def index():
 	Returns landing page
 	"""
 	return send_from_directory(static_dir, 'index.html')
+
+
+
+################################################################################
+####################[ WEATHER APP ]#############################################
+################################################################################
+
+@app.route('/clima', methods=['POST'])
+def clima():
+	"""
+	Hook: clima
+	===========
+	returns weather report for location in Cuba
+	"""
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
+
+	#=====[ Step 2: search for weather	]=====
+	API_KEY = '1f5afb17bcb9c1b1a63b2349866a89a8'
+	forecast = forecastio.load_forecast(API_KEY, 23.1333, 82.3833)
+	result = str(forecast.hourly())
+
+	#=====[ Step 3: return mail	]=====
+	mail_client.send_message(
+						mail.user,
+						'prognostico',
+						result
+					)
+	return ''
 
 
 
