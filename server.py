@@ -90,7 +90,7 @@ def qpaza():
 		return ''
 
 	#=====[ Step 2: THE GUTS	]=====
-	events = filter(lambda l: l.strip().startswith('@'), email.body.split('\n'))
+	events = filter(lambda l: l.strip().startswith('@'), mail.body.split('\n'))
 
 	for eventDescription in events:
 		eventToAdd = { 'event':eventDescription }
