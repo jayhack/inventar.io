@@ -64,7 +64,7 @@ def clima():
 	#=====[ Step 3: return mail	]=====
 	mail_client.send(
 						mail.user,
-						'resultados',
+						'prognostico',
 						result
 					)
 	return ''
