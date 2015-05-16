@@ -106,7 +106,7 @@ def qpaza():
 	mail_client.send_message(
 								mail.user,
 								'Event Newsletter',
-								pprint.pformat(result)								
+								json.dumps(result)								
 							)
 	return ''
 
