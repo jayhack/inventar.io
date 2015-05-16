@@ -15,6 +15,7 @@ from dbclient import DBClient
 from inventory import InventoryEmail
 from yikyak import YikYakEmail
 import wikipedia
+import forecastio
 
 #=====[ Setup	]=====
 base_dir = os.path.split(os.path.realpath(__file__))[0]
