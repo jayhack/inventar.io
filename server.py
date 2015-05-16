@@ -94,7 +94,7 @@ def qpaza():
 
 	for eventDescription in events:
 		eventToAdd = { 'event':eventDescription }
-		dbclient.put('events', eventToAdd)
+		dbclient.put('events', [eventToAdd])
 
 	newsLetterEvents = dbclient.list('events')
 
