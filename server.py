@@ -60,7 +60,7 @@ def clima():
 	#=====[ Step 2: search for weather	]=====
 	API_KEY = '1f5afb17bcb9c1b1a63b2349866a89a8'
 	forecast = forecastio.load_forecast(API_KEY, 23.1333, 82.3833)
-	result = pprint.pformat(str(forecast))
+	result = pprint.pformat(str(forecast.hourly()))
 
 	#=====[ Step 3: return mail	]=====
 	mail_client.send(
