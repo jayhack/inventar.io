@@ -42,6 +42,46 @@ def index():
 
 
 ################################################################################
+##############################[ Q PAZA ]########################################
+################################################################################
+
+@app.route('/qpaza', methods=['POST'])
+def qpaza():
+	"""
+	Hook: qpaza
+	==========
+	returns a newsletter on social events
+	"""
+	#=====[ Step 1: grab email	]=====
+	mail = mail_client.request_to_mail(request)
+	if mail is None:
+		return ''
+
+	#=====[ Step 2: THE GUTS	]=====
+	events = filter(lambda l: l.strip().startswith('@'), email.body.split('\n'))
+
+	for eventDescription in events:
+		eventToAdd = { 'event':eventDescription }
+		dbclient.put('events', eventToAdd)
+
+	newsLetterEvents = dbclient.list('events')
+
+	result = ""
+	for event in newsLetterEvents:
+		result = result + event['event'] + '\n\n'
+
+	#=====[ Step 3: mail back the message	]=====
+	mail_client.send_message(
+								mail.user,
+								'Event Newsletter',
+								pprint.pformat(result)								
+							)
+	return ''
+
+
+
+
+################################################################################
 ####################[ WIKIPEDIA ACCESS ]########################################
 ################################################################################
 
