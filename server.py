@@ -63,7 +63,7 @@ def clima():
 	result = str(forecast.hourly())
 
 	#=====[ Step 3: return mail	]=====
-	mail_client.send(
+	mail_client.send_message(
 						mail.user,
 						'prognostico',
 						result
