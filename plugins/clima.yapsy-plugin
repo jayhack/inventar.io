@@ -1,9 +1,0 @@
-[Core]
-Name = ClimaApp
-Module = clima
-
-[Documentation]
-Author = Jay Hack
-Version = 0.1
-Website = http://www.github.com/jayhack
-Description = Weather

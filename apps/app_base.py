@@ -5,9 +5,7 @@ Module: app_base
 Contains base class for apps; developers should subclass this 
 in order to make an app that will run live on the server
 """
-from yapsy import IPlugin
-
-class AppBase(IPlugin):
+class AppBase(object):
 
 	def __init__(self, db_client, mail_client):
 		self.db_client = db_client

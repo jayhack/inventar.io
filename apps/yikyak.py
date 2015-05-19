@@ -8,7 +8,7 @@ anonymous feed
 import pprint
 from app_base import AppBase
 
-class YikYakApp(AppBase):
+class App(AppBase):
 	"""
 	App: YikYak
 	===========
@@ -22,7 +22,7 @@ class YikYakApp(AppBase):
 	char_limit = 140
 
 	def __init__(self, db_client, mail_client):
-		super(InventarioAppBase, self).__init__(db_client, mail_client)
+		super(App, self).__init__(db_client, mail_client)
 
 	def get_feed(self, mail):
 		"""returns current feed as string"""

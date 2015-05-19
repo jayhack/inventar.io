@@ -22,37 +22,37 @@ app = Flask(__name__, static_folder=assets_dir)
 db_client = DBClient()
 mail_client = IvioMailClient()
 
-from yapsy.PluginManager import PluginManager
+class AppManager(object):
+	"""
+	Class: AppManager
+	=================
+	Manages all apps in app folder
+	"""
+	apps_dir = 'apps'
+	non_apps = ['__init__.py', 'app_base.py']
 
-def main():   
-	# Load the plugins from the plugin directory.
-	manager = PluginManager()
-	manager.setPluginPlaces(["plugins"])
-	manager.collectPlugins()
+	def get_app_names(self):
+		"""returns list of app names"""
+		py_files = [x for x in os.listdir(self.apps_dir) if x.endswith('.py')]
+		app_files = [x for x in py_files if not x in self.non_apps]
+		app_names = [x.split('.')[0].lower() for x in app_files]
+		return app_names
 
-	# Loop round the plugins and print their names.
-	for plugin in manager.getAllPlugins():
-		print plugin
-		# plugin.plugin_object.print_name()
+	def import_app(self, app_name):
+		"""imports App class from app named app_name"""
+		app_mod = __import__('%s.%s' % (self.apps_dir, app_name), fromlist=['App'])
+		return app_mod.App
 
-if __name__ == "__main__":
-	main()
-
-# for importer, app_name, ispkg in pkgutil.iter_modules([apps_dir]):
-
-# 	full_app_name = 'apps.%s' % (app_name)
-# 	app = __import__(full_app_name)
-# 	print full_app_name
-# 	for name, obj in inspect.getmembers(app):
-# 		if inspect.isclass(obj):
-# 			print name
-# 	print
+	def get_apps(self):
+		"""returns dict mapping app name to app class"""
+		app_names = self.get_app_names()
+		apps = {app_name:self.import_app(app_name) for app_name in app_names}
+		return apps
 
 
+app_manager = AppManager()
+apps = app_manager.get_apps()
 
-	# if full_app_name not in sys.modules:
-		# module = importer.find_module(app_name).load_module(full_app_name)
-		# print module
 
 
 ################################################################################
