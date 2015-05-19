@@ -1,0 +1,9 @@
+[Core]
+Name = WikiApp
+Module = wiki
+
+[Documentation]
+Author = Jay Hack
+Version = 0.1
+Website = http://www.github.com/jayhack
+Description = Wikipedia summaries via email
