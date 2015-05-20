@@ -15,11 +15,10 @@ class DBClient(object):
 	def __init__(self):
 		self.orc_client = porc.Client(ORCHESTRATE_API_KEY, async=False)
 
-	def put(self, collection, items):
+	def put(self, collection, item):
 		"""puts list of items in specified collection on orchestrate"""
-		for item in items:
-			item['unique_id'] = str(uuid.uuid4())
-			self.orc_client.put(collection, item['unique_id'], item) 
+		item['unique_id'] = str(uuid.uuid4())
+		self.orc_client.put(collection, item['unique_id'], item) 
 
 	def update(self, collection, key, item):
 		"""updates a particular item in specified collection on orchestrate"""
