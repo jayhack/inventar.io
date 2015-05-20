@@ -31,13 +31,17 @@ class MailClient(object):
 	def request_to_mail(self, request):
 		"""flask.Request -> Mail"""
 		#=====[ Step 1: Filter for mandrill	]=====
-		if not 'mandrill_events' in request.form:
-			return None
-		elif len(request.form['mandrill_events']) == 0:
-			return None
+		print '=====[ HERE ]====='
+		print request.get('mandrill_events')
+		print type(request.get('mandrill_events'))
+		print '=====[ END HERE ]===='
 
 		#=====[ Step 2: extract content	]=====
-		j = json.loads(request.form['mandrill_events'])
+		if type (request.get('mandrill_events')) in [str, unicode]:
+			j = json.loads(request.get('mandrill_events'))
+		else:
+			j = request.get('mandrill_events')
+
 		if len(j) == 0:
 			return None
 		d = j[0]
