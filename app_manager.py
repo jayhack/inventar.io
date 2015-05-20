@@ -7,7 +7,7 @@ directory
 """
 import os
 import inspect
-from apps.app_base import AppBase
+from app_base import AppBase
 
 class AppManager(object):
 	"""
