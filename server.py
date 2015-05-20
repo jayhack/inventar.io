@@ -9,9 +9,9 @@ from app_manager import AppManager
 from landing_page import LandingPageApp
 
 #=====[ Apps setup	]=====
-app_manager = AppManager()
-apps = app_manager.get_apps()
-apps += [('/', LandingPageApp)]
+# app_manager = AppManager()
+# apps = app_manager.get_apps()
+apps = [('/', LandingPageApp)]
 app = webapp2.WSGIApplication(apps)
 
 
