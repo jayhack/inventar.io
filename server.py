@@ -10,8 +10,9 @@ from app_manager import AppManager
 from landing_page import LandingPageApp
 
 #=====[ Apps setup	]=====
-# app_manager = AppManager()
-# apps = app_manager.get_apps()
+app_manager = AppManager()
+apps = app_manager.get_apps()
+
 # class TestApp(webapp2.RequestHandler):
 	# """
 	# Page: LandingPage
@@ -21,7 +22,7 @@ from landing_page import LandingPageApp
 	# def get(self):
 		# template = JINJA_ENVIRONMENT.get_template('index.html')
 		# self.response.write('hello, world')
-apps = [('/', LandingPageApp)]
+apps += [('/', LandingPageApp)]
 app = webapp2.WSGIApplication(apps)
 
 

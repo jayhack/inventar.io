@@ -16,7 +16,7 @@ class AppManager(object):
 	Manages all apps in app folder
 	"""
 	apps_dir = 'apps'
-	non_apps = ['__init__.py', 'app_base.py']
+	non_apps = ['__init__.py', 'app_base.py', 'clima.py', 'yikyak.py']
 
 	def get_app_names(self):
 		"""returns list of app names"""
