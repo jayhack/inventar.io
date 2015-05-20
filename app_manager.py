@@ -6,6 +6,8 @@ Defines class AppManager, responsible for managing all apps included in app
 directory
 """
 import os
+import sys
+sys.path.append(os.path.dirname(__file__))
 import inspect
 from app_base import AppBase
 
@@ -15,7 +17,7 @@ class AppManager(object):
 	=================
 	Manages all apps in app folder
 	"""
-	apps_dir = 'apps'
+	apps_dir = os.path.join(os.path.dirname(__file__), 'apps')
 	non_apps = ['__init__.py', 'app_base.py', 'clima.py', 'yikyak.py']
 
 	def get_app_names(self):
@@ -27,7 +29,7 @@ class AppManager(object):
 
 	def import_app(self, app_name):
 		"""imports App class from app named app_name"""
-		app_mod = __import__('%s.%s' % (self.apps_dir, app_name), fromlist=['App'])
+		app_mod = __import__('apps.%s' % (self.apps_dir, app_name), fromlist=['App'])
 		return app_mod.App
 
 	def verify_app(self, app):
