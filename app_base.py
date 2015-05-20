@@ -20,7 +20,7 @@ class AppBase(webapp2.RequestHandler):
 		"""deals with post requests"""
 		mail = self.mail_client.request_to_mail(self.request)
 		if not mail is None:
-			self.process(self.request)
+			self.process(mail)
 		self.response.write('')
 
 	def process(self):
