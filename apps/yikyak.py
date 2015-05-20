@@ -5,8 +5,11 @@ Module: yikyak
 Contains app YikYak, which provides a wall for users to post to and view an 
 anonymous feed
 """
-import pprint
+import sys
+sys.path.append('../')
 from app_base import AppBase
+
+import pprint
 
 class App(AppBase):
 	"""
@@ -20,9 +23,6 @@ class App(AppBase):
 	hook = '/wiki'
 	db_collection = 'yikyak'
 	char_limit = 140
-
-	def __init__(self, db_client, mail_client):
-		super(App, self).__init__(db_client, mail_client)
 
 	def get_feed(self, mail):
 		"""returns current feed as string"""

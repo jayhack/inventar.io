@@ -2,14 +2,14 @@
 Module: mail
 ============
 
-Contains classes IvioMail, containing info on single emails, and 
-IvioMailClient, providing access to email infrastructure
+Contains classes Mail, containing info on single emails, and 
+MailClient, providing access to email infrastructure
 """
 import json
 import mandrill
 from secrets import MANDRILL_API_KEY
 
-class IvioMail(object):
+class Mail(object):
 
 	def __init__(self, sender, subject, body, date):
 		self.user = sender
@@ -18,7 +18,7 @@ class IvioMail(object):
 		self.date = date
 
 
-class IvioMailClient(object):
+class MailClient(object):
 
 	def __init__(self):
 		self.man_client = mandrill.Mandrill(MANDRILL_API_KEY)
@@ -42,7 +42,7 @@ class IvioMailClient(object):
 			return None
 		d = j[0]
 		msg = d['msg']
-		return IvioMail(msg['from_email'], msg['subject'], msg['text'], str(d['ts']))
+		return Mail(msg['from_email'], msg['subject'], msg['text'], str(d['ts']))
 
 
 	################################################################################

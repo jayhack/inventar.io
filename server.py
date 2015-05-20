@@ -3,71 +3,16 @@ Module: server
 ==============
 Contains main flask application
 """
-import os
-import sys
-import json
-from flask import Flask
-from flask import request
-from flask import send_from_directory
-from mail import IvioMail, IvioMailClient
-from dbclient import DBClient
-from inventory import InventoryEmail
+#=====[ Standard	]=====
+import webapp2
+from app_manager import AppManager
+from landing_page import LandingPageApp
 
-#=====[ Setup	]=====
-base_dir = os.path.split(os.path.realpath(__file__))[0]
-static_dir = os.path.join(base_dir, 'static')
-assets_dir = os.path.join(static_dir, 'assets')
-apps_dir = os.path.join(base_dir, 'apps')
-app = Flask(__name__, static_folder=assets_dir)
-db_client = DBClient()
-mail_client = IvioMailClient()
-
-class AppManager(object):
-	"""
-	Class: AppManager
-	=================
-	Manages all apps in app folder
-	"""
-	apps_dir = 'apps'
-	non_apps = ['__init__.py', 'app_base.py']
-
-	def get_app_names(self):
-		"""returns list of app names"""
-		py_files = [x for x in os.listdir(self.apps_dir) if x.endswith('.py')]
-		app_files = [x for x in py_files if not x in self.non_apps]
-		app_names = [x.split('.')[0].lower() for x in app_files]
-		return app_names
-
-	def import_app(self, app_name):
-		"""imports App class from app named app_name"""
-		app_mod = __import__('%s.%s' % (self.apps_dir, app_name), fromlist=['App'])
-		return app_mod.App
-
-	def get_apps(self):
-		"""returns dict mapping app name to app class"""
-		app_names = self.get_app_names()
-		apps = {app_name:self.import_app(app_name) for app_name in app_names}
-		return apps
-
-
+#=====[ Apps setup	]=====
 app_manager = AppManager()
 apps = app_manager.get_apps()
-
-
-
-################################################################################
-####################[ LANDING PAGE ]############################################
-################################################################################
-
-# @app.route('/')
-# def index():
-# 	"""
-# 	Hook: index
-# 	===========
-# 	Returns landing page
-# 	"""
-# 	return send_from_directory(static_dir, 'index.html')
-
+apps += [('/', LandingPageApp)]
+app = webapp2.WSGIApplication(apps)
 
 
 
