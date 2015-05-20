@@ -8,7 +8,6 @@ to the user
 import sys
 sys.path.append('../')
 from app_base import AppBase
-
 import forecastio
 
 class App(AppBase):
