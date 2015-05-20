@@ -5,7 +5,6 @@ Contains definiton of landing page app
 """
 import os
 import webapp2
-import webapp2_static
 import jinja2
 
 JINJA_ENVIRONMENT = jinja2.Environment(
