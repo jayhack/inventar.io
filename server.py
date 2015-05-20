@@ -5,13 +5,14 @@ Contains main flask application
 """
 #=====[ Standard	]=====
 import webapp2
+import webapp2_static
 from app_manager import AppManager
 from landing_page import LandingPageApp
 
 #=====[ Apps setup	]=====
 # app_manager = AppManager()
 # apps = app_manager.get_apps()
-apps = [('/', LandingPageApp)]
+apps = [('/', webapp2_static.StaticFileHandler)]
 app = webapp2.WSGIApplication(apps)
 
 
