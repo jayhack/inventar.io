@@ -12,7 +12,7 @@ from landing_page import LandingPageApp
 #=====[ Apps setup	]=====
 # app_manager = AppManager()
 # apps = app_manager.get_apps()
-apps = [('/', webapp2_static.StaticFileHandler)]
+apps = [('/', LandingPageApp)]
 app = webapp2.WSGIApplication(apps)
 
 
