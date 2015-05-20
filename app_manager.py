@@ -22,7 +22,7 @@ class AppManager(object):
 
 	def get_app_names(self):
 		"""returns list of app names"""
-		print apps_dir
+		print self.apps_dir
 		py_files = [x for x in os.listdir(self.apps_dir) if x.endswith('.py')]
 		app_files = [x for x in py_files if not x in self.non_apps]
 		app_names = [x.split('.')[0].lower() for x in app_files]
