@@ -27,7 +27,6 @@ apps = app_manager.get_apps()
 		# template = JINJA_ENVIRONMENT.get_template('index.html')
 		# self.response.write('hello, world')
 apps += [('/', LandingPageApp)]
-print apps
 app = webapp2.WSGIApplication(apps)
 
 
