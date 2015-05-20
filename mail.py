@@ -30,20 +30,14 @@ class MailClient(object):
 	@classmethod
 	def request_to_mail(self, request):
 		"""flask.Request -> Mail"""
-		#=====[ Step 1: Filter for mandrill	]=====
-		print '=====[ HERE ]====='
-		print request.get('mandrill_events')
-		print type(request.get('mandrill_events'))
-		print '=====[ END HERE ]===='
-
 		#=====[ Step 2: extract content	]=====
 		if type (request.get('mandrill_events')) in [str, unicode]:
 			j = json.loads(request.get('mandrill_events'))
 		else:
 			j = request.get('mandrill_events')
-
 		if len(j) == 0:
 			return None
+		#=====[ Step 3: make mail	]=====
 		d = j[0]
 		msg = d['msg']
 		return Mail(msg['from_email'], msg['subject'], msg['text'], str(d['ts']))

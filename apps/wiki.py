@@ -7,6 +7,7 @@ Contains app Wiki, which provides access to Wikipedia summaries
 import sys
 sys.path.append('../')
 from app_base import AppBase
+import wikipedia
 
 class App(AppBase):
 	"""
