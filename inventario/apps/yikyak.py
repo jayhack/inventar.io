@@ -1,7 +1,6 @@
-import pprint
-from ..inventario import MailAppBase
+from ..app_base import EmailAppBase
 
-class App(MailAppBase):
+class App(EmailAppBase):
 	"""
 	App: YikYak
 	===========
@@ -11,7 +10,6 @@ class App(MailAppBase):
 	#=====[ metadata ]=====
 	from_email = 'yikyak@ivioapp.com'
 	db_collection = 'yikyak'
-	dependencies = ['pprint']
 	char_limit = 140
 	feed_header = """YIKYAK FEED:\n============\n\n"""
 
