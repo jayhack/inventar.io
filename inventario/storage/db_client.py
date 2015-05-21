@@ -22,7 +22,8 @@ class DBClient(object):
 	def put(self, collection, item):
 		"""puts list of items in specified collection on orchestrate"""
 		item['unique_id'] = str(uuid.uuid4())
-		self.orc_client.put(collection, item['unique_id'], item) 
+		self.orc_client.put(collection, item['unique_id'], item)
+		return item['unique_id']
 
 	def update(self, collection, key, item):
 		"""updates a particular item in specified collection on orchestrate"""
