@@ -29,7 +29,7 @@ Wikipedia Summary:
 ---
 
 %s
-""" % (mail.subject.strip(), summary)
+""" % (email.subject.strip(), summary)
 
 
 
@@ -42,5 +42,5 @@ Wikipedia Summary:
 										self.from_email, 
 										email.user, 
 										'Wikipedia Resultados', 
-										summary
+										body
 										)
