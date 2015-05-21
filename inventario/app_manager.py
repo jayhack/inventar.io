@@ -19,7 +19,7 @@ class AppManager(object):
 
 	#=====[ non_apps	]=====
 	# ignores these files from apps directory
-	non_apps = ['__init__.py', 'app_base.py', 'yikyak.py']
+	non_apps = ['__init__.py']
 
 	def __init__(self, server_dir, apps_mod, verbose=True):
 		"""
