@@ -5,9 +5,11 @@ Module: mandrill_utils
 Contains utilities for working with Mandrill
 """
 import json
+from email.utils import parseaddr
 import mandrill
 from messages import Email
 from messages import SMS
+
 
 def validate_email_addr(email_addr):
 	"""returns True if email_addr is valid"""
