@@ -17,7 +17,7 @@ class SMSAppBase(AppBase):
 		self.db_client = DBClient()
 
 	def extract_msg(self, request):
-		return flask_request_to_sms
+		return flask_request_to_sms(request)
 
 	def process(self, sms):
 		"""override"""

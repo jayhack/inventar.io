@@ -10,10 +10,6 @@ class AppBase(webapp2.RequestHandler):
 	process(self, msg)
 	"""
 
-	#=====[ extract_msg	]=====
-	# flask.request -> desired message format
-	exract_msg = None
-
 	def __init__(self, request=None, response=None):
 		self.initialize(request, response)
 
@@ -24,7 +20,10 @@ class AppBase(webapp2.RequestHandler):
 			self.process(msg)
 		self.response.write('')
 
-	def process(self, msg):
+	def extract_msg(self, request):
 		"""override"""
 		raise NotImplementedError
 
+	def process(self, msg):
+		"""override"""
+		raise NotImplementedError
