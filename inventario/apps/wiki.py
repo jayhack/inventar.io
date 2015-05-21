@@ -10,10 +10,19 @@ class App(EmailAppBase):
 
 	#=====[ Metadata	]=====
 	dependencies = ['wikipedia']
+	from_email = 'wiki@ivioapp.com'
 
 	def process(self, email):
+		#=====[ Step 1: get summary	]=====
 		try:
 			summary = wikipedia.summary(mail.subject.strip())
 		except:
 			summary = 'Disambiguation Error'
-		self.email_client.send_message(email.user, 'Wikipedia Resultados', summary)
+
+		#=====[ Step 2: send results	]=====
+		self.email_client.send_message(
+										self.from_email, 
+										email.user, 
+										'Wikipedia Resultados', 
+										summary
+										)
