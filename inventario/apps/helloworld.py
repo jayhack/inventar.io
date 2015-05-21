@@ -62,3 +62,17 @@ class App(EmailAppBase):
 		subject = 'Hello, world!'
 		body = 'Your previous email subject: %s' % retrieved['subject']
 		self.email_client.send_message(from_email, to_email, subject, body)
+
+		#=====[ Step 4: deployment	]=====
+		# That's basically it! Now, next time the project is deployed, this app
+		# will be deployed at www.ivioapp.com/helloworld (taken from the
+		# filename) and it will start to receive emails from
+		# helloworld@ivioapp.com. Try it out! (It is currently deployed)
+
+		#=====[ Step 5: make your own	]=====
+		# Using the ingredients listed here, make your own valuable service for 
+		# those without affordable access to the internet at large. Check out 
+		# our 'App Wish List' on github to get some ideas, or come up with your
+		# own! Once you have finished, make a pull request or email me at 
+		# jhack@stanford.edu and, pending it won't take the entire server down,
+		# I'll make sure it gets deployed. Good luck!!
