@@ -23,4 +23,4 @@ class App(EmailAppBase):
 										mail.user, 
 										'prognostico del tiempo', 
 										str(tiempo.hourly())
-										)
+									)

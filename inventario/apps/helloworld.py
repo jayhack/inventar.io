@@ -30,6 +30,7 @@ class App(EmailAppBase):
 
 			- self.email_client: inventario.messaging.EmailClient, allows
 			                     you to send messages
+
 			- self.db_client: inventario.storage.DBClient, allows you to 
 			                  store and retrieve data from a NoSQL database
 
@@ -42,13 +43,14 @@ class App(EmailAppBase):
 		# line in the database.
 		db_collection = 'helloworld'
 		item = {'subject':email.subject}
-		item_id = self.db_client.put(db_collection, item)
+		self.db_client.put(db_collection, item)
 
 		#=====[ Step 2: retrieve our item	]=====
-		# self.db_client.find(collection, id) allows you to retrieve an item
-		# by its id. self.db_client.list(collection) will return all items in
-		# the named collection as a list. Let's grab our most recent item back.
-		retrieved_item = self.db_client.find(db_collection, item_id)
+		# self.db_client.search(collection, key, value) allows you to retrieve
+		# all items from the database where key == value. Let's grab the same 
+		# email back by subject
+		matches = self.db_client.find(db_collection, 'subject', email.subject)
+		retrieved = matches[-1] #grab the most recent one.
 
 		#=====[ Step 3: send back an email	]=====
 		# We can send emails back using self.email_client.send_message, which 
@@ -58,5 +60,5 @@ class App(EmailAppBase):
 		from_email = 'helloworld@ivioapp.com'
 		to_email = email.user
 		subject = 'Hello, world!'
-		body = 'Your previous email subject: %s' % retrieved_item['subject']
+		body = 'Your previous email subject: %s' % retrieved['subject']
 		self.email_client.send_message(from_email, to_email, subject, body)
