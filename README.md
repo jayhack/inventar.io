@@ -1,5 +1,5 @@
 # Inventar.io
-A platform for building connectivity apps through email and SMS
+A platform for web apps that interact with the user through email and/or SMS
 
 ## I. Overview
 
