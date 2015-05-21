@@ -11,12 +11,13 @@ class SMSAppBase(AppBase):
 	self.mail_client, store content via self.db_client
 	"""
 
-	extract_msg = flask_request_to_sms
-
 	def __init__(self, request=None, response=None):
 		self.initialize(request, response)
 		self.sms_client = SMSClient()
 		self.db_client = DBClient()
+
+	def extract_msg(self, request):
+		return flask_request_to_sms
 
 	def process(self, sms):
 		"""override"""

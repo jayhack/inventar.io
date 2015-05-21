@@ -11,12 +11,13 @@ class EmailAppBase(AppBase):
 	self.mail_client, store content via self.db_client
 	"""
 
-	extract_msg = flask_request_to_email
-
 	def __init__(self, request=None, response=None):
 		self.initialize(request, response)
 		self.email_client = EmailClient()
 		self.db_client = DBClient()
+
+	def extract_msg(self, request):
+		return flask_request_to_email(request)
 
 	def process(self, email):
 		"""override"""
