@@ -18,7 +18,7 @@ class App(EmailAppBase):
 		"""post -> string"""
 		if not 'post' in post:
 			print post
-		return "%s----------\n" % post['post']
+		return "%s\n----------\n" % post['post']
 
 	def get_feed(self):
 		"""returns current feed as string"""

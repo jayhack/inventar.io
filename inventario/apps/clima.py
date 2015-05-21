@@ -23,7 +23,7 @@ class App(EmailAppBase):
 		if len(mail.subject().strip()) > 3:
 			try:
 				result = pygeocoder.Geocoder.geocode(mail.subject())
-				return result[0].coordinates, mail.subject().strip()
+				return result[0].coordinates, result[0]
 			except:
 				return self.havana_gps, 'La Habana'
 		else:
