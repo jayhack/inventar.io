@@ -46,6 +46,8 @@ The following apps would be amazing:
 Comments/questions? Ideas? Issues you have noticed? Feel free to hit me up!
 
   Jay Hack
+
   github.com/jayhack
+
   jhack@stanford.edu
 
