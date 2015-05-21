@@ -16,7 +16,7 @@ class App(EmailAppBase):
 		"""returns formatted summary"""
 		#=====[ Step 1: get summary	]=====
 		try:
-			summary = wikipedia.summary(mail.subject.strip())
+			summary = wikipedia.summary(email.subject.strip())
 		except:
 			summary = 'Disambiguation Error. Try English!'
 
