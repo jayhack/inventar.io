@@ -21,7 +21,7 @@ class AppManager(object):
 	# ignores these files from apps directory
 	non_apps = ['__init__.py', 'app_base.py', 'yikyak.py']
 
-	def __init__(self, server_dir, apps_mod):
+	def __init__(self, server_dir, apps_mod, verbose=True):
 		"""
 		Args:
 		-----
@@ -32,7 +32,12 @@ class AppManager(object):
 		self.apps_mod = apps_mod
 		apps_relpath = self.apps_mod.replace('.', '/')
 		self.apps_dir = os.path.join(self.server_dir, apps_relpath)
-		print self.apps_dir
+		self.verbose = verbose
+
+		if self.verbose:
+			print '=====[ AppManager ]====='
+			print 'apps_dir: %s' % self.apps_dir
+			print 'app_names: %s' % str(self.app_names)
 
 	def get_app_names(self):
 		"""returns list of app names"""
