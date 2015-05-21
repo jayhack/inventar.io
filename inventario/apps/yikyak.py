@@ -16,12 +16,12 @@ class App(EmailAppBase):
 
 	def post_to_str(self, post):
 		"""post -> string"""
-		return "-----\n%s\n" % post['text']
+		return "-----\n%s\n" % post['post']
 
 	def get_feed(self):
 		"""returns current feed as string"""
 		posts = self.db_client.list(self.db_collection)
-		post_strs = [self.post_to_str(p) for p in reversed(posts)]
+		post_strs = [self.post_to_str(p) for p in reversed(posts)][:20]
 		return self.feed_header + '\n'.join(post_strs)
 
 	def submit_yak(self, mail):
