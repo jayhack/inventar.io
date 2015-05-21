@@ -26,5 +26,5 @@ class EmailClient(MandrillClient):
 		- to_number: number to send to
 		- text: content of message to send. Limited to self.max_chars
 		"""
-		return self.send(self.from_email, self.to_email, subject, body)
+		return self.send(from_email, to_email, subject, body)
 
