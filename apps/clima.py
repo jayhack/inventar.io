@@ -1,16 +1,7 @@
-"""
-Module: clima
-=============
-
-Contains app Clima, which returns a weather report 
-to the user
-"""
-import sys
-sys.path.append('../')
-from app_base import AppBase
+from inventario import MailAppBase
 import forecastio
 
-class App(AppBase):
+class App(MailAppBase):
 	"""
 	App: Clima
 	==========
@@ -23,5 +14,5 @@ class App(AppBase):
 
 	def process(self, mail):
 		tiempo = forecastio.load_forecast(self.API_KEY, 23.1333, 82.3833)
-		self.mail_client.send_message(mail.user, 'prognostico del tiempo', 
+		self.email_client.send_message(mail.user, 'prognostico del tiempo', 
 										str(tiempo.hourly()))

@@ -1,16 +1,20 @@
-"""
-Module: dbclient
-================
-
-Contains class DBClient, which manages access to storage
-"""
 import uuid
-import pprint
-import mandrill
 import porc
 from secrets import ORCHESTRATE_API_KEY
 
 class DBClient(object):
+	"""
+	Class: DBClient
+	===============
+	Manages access to Orchestrate DB
+
+	Usage:
+	------
+	In [1]: client = DBClient()
+	In [2]: client.put('my_collection', {'new':'item'})
+	In [3]: items = client.list('my_collection')
+	In [4]: item = client.find('my_collection', my_key)
+	"""
 
 	def __init__(self):
 		self.orc_client = porc.Client(ORCHESTRATE_API_KEY, async=False)
@@ -40,7 +44,7 @@ class DBClient(object):
 		return [self.page_to_item(p) for p in pages.all()]
 
 	def find(self, collection, key):
-		""" searches 'collection' for specific item with given key"""
+		"""searches 'collection' for specific item with given key"""
 		page = self.orc_client.search(collection, key)
 		return self.page_to_item(page.next())
 

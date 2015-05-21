@@ -1,27 +1,18 @@
-"""
-Module: wiki
-============
-
-Contains app Wiki, which provides access to Wikipedia summaries
-"""
-import sys
-sys.path.append('../')
-from app_base import AppBase
+from inventario import MailAppBase
 import wikipedia
 
-class App(AppBase):
+class App(MailAppBase):
 	"""
 	App: Wiki
 	=========
 	Returns Wikipedia summary of concept named in subject line
 	"""
-
-	#=====[ metadata	]=====
+	#=====[ Metadata	]=====
 	dependencies = ['wikipedia']
 
-	def process(self, mail):
+	def process(self, email):
 		try:
 			summary = wikipedia.summary(mail.subject.strip())
 		except:
 			summary = 'Disambiguation Error'
-		self.mail_client.send_message(mail.user, 'Wikipedia Resultados', summary)
+		self.email_client.send_message(email.user, 'Wikipedia Resultados', summary)

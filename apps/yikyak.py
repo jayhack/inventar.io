@@ -5,10 +5,7 @@ Module: yikyak
 Contains app YikYak, which provides a wall for users to post to and view an 
 anonymous feed
 """
-import sys
-sys.path.append('../')
-from app_base import AppBase
-
+from inventario import MailAppBase
 import pprint
 
 class App(AppBase):
@@ -19,9 +16,7 @@ class App(AppBase):
 	Allows users to post to and view an anonymous feed
 	"""
 	#=====[ metadata ]=====
-	name = 'wiki'
-	hook = '/wiki'
-	db_collection = 'yikyak'
+	dependencies = ['pprint']
 	char_limit = 140
 
 	def get_feed(self, mail):

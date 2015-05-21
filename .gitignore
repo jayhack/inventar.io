@@ -9,4 +9,5 @@
 *.ipynb
 
 #=====[ Secrets ]=====
-secrets.py
+messaging/secrets.py
+storage/secrets.py
