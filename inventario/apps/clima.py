@@ -20,7 +20,7 @@ class App(EmailAppBase):
 
 	def get_gps(self, mail):
 		"""mail -> (lat, long) gps coords to be used"""
-		if len(mail.subject().strip()) > 3:
+		if len(mail.subject.strip()) > 3:
 			try:
 				result = pygeocoder.Geocoder.geocode(mail.subject())
 				return result[0].coordinates, result[0]
