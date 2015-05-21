@@ -1,14 +1,7 @@
-"""
-Module: yikyak
-==============
-
-Contains app YikYak, which provides a wall for users to post to and view an 
-anonymous feed
-"""
-from inventario import MailAppBase
+from ..inventario import MailAppBase
 import pprint
 
-class App(AppBase):
+class App(MailAppBase):
 	"""
 	App: YikYak
 	===========

@@ -1,7 +1,7 @@
-from inventario import MailAppBase
+from ..app_base import EmailAppBase
 import forecastio
 
-class App(MailAppBase):
+class App(EmailAppBase):
 	"""
 	App: Clima
 	==========

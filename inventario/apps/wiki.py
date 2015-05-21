@@ -1,12 +1,13 @@
-from inventario import MailAppBase
+from ..app_base import EmailAppBase
 import wikipedia
 
-class App(MailAppBase):
+class App(EmailAppBase):
 	"""
 	App: Wiki
 	=========
 	Returns Wikipedia summary of concept named in subject line
 	"""
+
 	#=====[ Metadata	]=====
 	dependencies = ['wikipedia']
 

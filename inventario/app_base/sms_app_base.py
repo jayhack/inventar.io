@@ -1,9 +1,9 @@
-import webapp2
-from messaging import SMSClient
-from storage import DBClient
-from messaging.mandrill_utils import flask_request_to_sms
+from app_base import AppBase
+from ..messaging import SMSClient
+from ..messaging import flask_request_to_sms
+from ..storage import DBClient
 
-class SMSAppBase(webapp2.RequestHandler):
+class SMSAppBase(AppBase):
 	"""
 	Class: SMSAppBase
 	=================
@@ -11,18 +11,13 @@ class SMSAppBase(webapp2.RequestHandler):
 	self.mail_client, store content via self.db_client
 	"""
 
+	extract_msg = flask_request_to_sms
+
 	def __init__(self, request=None, response=None):
 		self.initialize(request, response)
 		self.sms_client = SMSClient()
 		self.db_client = DBClient()
 
-	def post(self):
-		"""deals with post requests"""
-		sms = flask_request_to_sms(self.request)
-		if not sms is None:
-			self.process(sms)
-		self.response.write('')
-
-	def process(self):
+	def process(self, sms):
 		"""override"""
 		raise NotImplementedError

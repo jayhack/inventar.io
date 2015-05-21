@@ -7,7 +7,6 @@ directory
 """
 import os
 import sys
-sys.path.append(os.path.dirname(__file__))
 import inspect
 from app_base import AppBase
 
@@ -17,8 +16,23 @@ class AppManager(object):
 	=================
 	Manages all apps in app folder
 	"""
-	apps_dir = os.path.join(os.path.dirname(__file__), 'apps')
+
+	#=====[ non_apps	]=====
+	# ignores these files from apps directory
 	non_apps = ['__init__.py', 'app_base.py', 'yikyak.py']
+
+	def __init__(self, server_dir, apps_mod):
+		"""
+		Args:
+		-----
+		- server_dir: directory that server is located in
+		- apps_mod: mod that server would import apps from
+		"""
+		self.server_dir = server_dir
+		self.apps_mod = apps_mod
+		apps_relpath = self.apps_mod.replace('.', '/')
+		self.apps_dir = os.path.join(self.server_dir, apps_relpath)
+		print self.apps_dir
 
 	def get_app_names(self):
 		"""returns list of app names"""
@@ -29,7 +43,8 @@ class AppManager(object):
 
 	def import_app(self, app_name):
 		"""imports App class from app named app_name"""
-		app_mod = __import__('apps.%s' % app_name, fromlist=['App'])
+		app_mod_name = '%s.%s' % (self.apps_mod, app_name)
+		app_mod = __import__(app_mod_name, fromlist=['App'])
 		for dependency in app_mod.App.dependencies:
 			__import__(dependency)
 		return app_mod.App

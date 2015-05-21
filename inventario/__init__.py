@@ -2,12 +2,17 @@ __all__ = 	[
 				#=====[ Clients	]=====
 				'EmailClient', 'SMSClient', 'DBClient',
 
+				#=====[ App Management	]=====
+				'AppManager'
+
 				#=====[ App Bases	]=====
-				'MailAppBase', 'SMSAppBase'
+				'AppBase', 'EmailAppBase', 'SMSAppBase'
+
 			]
 
 from messaging import EmailClient
 from messaging import SMSClient
 from storage import DBClient
-from mail_app_base import MailAppBase
-from sms_app_base import SMSAppBase
+from app_base import EmailAppBase
+from app_base import SMSAppBase
+from app_manager import AppManager
