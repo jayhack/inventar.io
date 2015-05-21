@@ -4,6 +4,7 @@ Module: mandrill_utils
 
 Contains utilities for working with Mandrill
 """
+import json
 import mandrill
 from messages import Email
 from messages import SMS
