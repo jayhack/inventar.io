@@ -43,10 +43,6 @@ class MailClient(object):
 		return Mail(msg['from_email'], msg['subject'], msg['text'], str(d['ts']))
 
 
-	################################################################################
-	####################[ SENDING EMAIL ]###########################################
-	################################################################################
-
 	def send_message(self, to_email, subject, body):
 		"""sends message via Mandrill API request"""
 		message = {
@@ -61,4 +57,17 @@ class MailClient(object):
 												ip_pool='Main Pool'
 											)
 		return result
+
+
+	################################################################################
+	####################[ ADDING HOOKS ]############################################
+	################################################################################
+
+	def add_webhook(self, app_name, hook_name):
+		"""adds webhook for app"""
+		self.man_client.inbound.add_route(	
+											domain='ivioapp.com', 
+											pattern=app_name, 
+											url='www.ivioapp.com/%s' % hook_name)
+
 
