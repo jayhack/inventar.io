@@ -34,11 +34,8 @@ Wikipedia Summary:
 
 
 	def process(self, email):
-		#=====[ Step 1: get summary	]=====
-		try:
-			summary = wikipedia.summary(mail.subject.strip())
-		except:
-			summary = 'Disambiguation Error. Try English!'
+		#=====[ Step 1: get body	]=====
+		body = self.get_summary(email)
 
 		#=====[ Step 2: send results	]=====
 		self.email_client.send_message(
