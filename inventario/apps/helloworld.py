@@ -49,7 +49,7 @@ class App(EmailAppBase):
 		# self.db_client.search(collection, key, value) allows you to retrieve
 		# all items from the database where key == value. Let's grab the same 
 		# email back by subject
-		matches = self.db_client.find(db_collection, 'subject', email.subject)
+		matches = self.db_client.search(db_collection, 'subject', email.subject)
 		retrieved = matches[-1] #grab the most recent one.
 
 		#=====[ Step 3: send back an email	]=====
