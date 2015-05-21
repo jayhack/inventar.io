@@ -9,10 +9,6 @@ import webapp2_static
 from app_manager import AppManager
 from landing_page import LandingPageApp
 
-#=====[ App includes	]=====
-import wikipedia
-import forecastio
-
 #=====[ Apps setup	]=====
 app_manager = AppManager()
 apps = app_manager.get_apps()

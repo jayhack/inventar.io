@@ -15,6 +15,10 @@ class App(AppBase):
 	=========
 	Returns Wikipedia summary of concept named in subject line
 	"""
+
+	#=====[ metadata	]=====
+	dependencies = ['wikipedia']
+
 	def process(self, mail):
 		try:
 			summary = wikipedia.summary(mail.subject.strip())

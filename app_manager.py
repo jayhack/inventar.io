@@ -22,7 +22,6 @@ class AppManager(object):
 
 	def get_app_names(self):
 		"""returns list of app names"""
-		print self.apps_dir
 		py_files = [x for x in os.listdir(self.apps_dir) if x.endswith('.py')]
 		app_files = [x for x in py_files if not x in self.non_apps]
 		app_names = [x.split('.')[0].lower() for x in app_files]
@@ -31,6 +30,8 @@ class AppManager(object):
 	def import_app(self, app_name):
 		"""imports App class from app named app_name"""
 		app_mod = __import__('apps.%s' % app_name, fromlist=['App'])
+		for dependency in app_mod.App.dependencies:
+			__import__(dependency)
 		return app_mod.App
 
 	def verify_app(self, app):
