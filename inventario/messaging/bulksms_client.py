@@ -19,7 +19,7 @@ class BulkSMSClient(MandrillClient):
 	limit_chars = 140
 
 	def __init__(self):
-		super(MessagingClient, self).__init__()
+		super(MandrillClient, self).__init__()
 
 	def send_message(self, to_number, text):
 		"""

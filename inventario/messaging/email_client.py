@@ -13,7 +13,7 @@ class EmailClient(MandrillClient):
 	"""
 
 	def __init__(self):
-		super(MessagingClient, self).__init__()
+		super(MandrillClient, self).__init__()
 
 	def send_message(self, from_email, to_email, subject, body):
 		"""
