@@ -8,6 +8,7 @@ class App(EmailAppBase):
 	Allows users to post to and view an anonymous feed. 
 	"""
 	#=====[ metadata ]=====
+	dependencies = []
 	from_email = 'yikyak@ivioapp.com'
 	db_collection = 'yikyak'
 	char_limit = 140
