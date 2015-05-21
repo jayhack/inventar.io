@@ -27,7 +27,7 @@ class App(EmailAppBase):
 	def submit_yak(self, mail):
 		"""processes yikyak posts; limit 140 characters"""
 		post = mail.subject.strip()[:self.char_limit]
-		self.db_client.put(self.db_collection, {'text':post, 'user':mail.user})
+		self.db_client.put(self.db_collection, {'post':post, 'user':mail.user})
 
 	def process(self, mail):
 		#=====[ Step 1: submit post	]=====
