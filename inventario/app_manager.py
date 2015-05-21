@@ -37,7 +37,7 @@ class AppManager(object):
 		if self.verbose:
 			print '=====[ AppManager ]====='
 			print 'apps_dir: %s' % self.apps_dir
-			print 'app_names: %s' % str(self.app_names)
+			print 'app_names: %s' % str(self.get_app_names())
 
 	def get_app_names(self):
 		"""returns list of app names"""
