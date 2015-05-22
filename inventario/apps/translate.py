@@ -38,7 +38,7 @@ Traduccion para:
 ---
 
 %s
-""" % (email.subject.strip().encode('ascii'), translation.encode('ascii'))
+""" % (email.subject.strip().encode('ascii', 'ignore'), translation.encode('ascii', 'ignore'))
 
 
 
