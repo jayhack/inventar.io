@@ -13,6 +13,8 @@ Inventar.io is a platform that allows developers to rapidly develop and deploy w
 
   - yikyak: email yikyak@ivioapp.com with a comment in the subject line (or nothing) in order to post to a public, anonymous messageboard and see the most recent comments.
 
+  - translate: email translate@ivioapp.com with text in the body and your desired language in the subject line and receive a translation back, courtesy of Google Translate.
+
 Inventar.io provides developers with simple access to SMS and email messaging services as well as NoSQL database storage. This allows one to emulate a huge range of popular web services for those without affordable access. Please help us scale horizontally - make craigslist/twitter/yikyak/whatever accessible via email! - and provide valuable services to those in need.
 
 
