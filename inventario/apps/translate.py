@@ -18,19 +18,19 @@ class App(EmailAppBase):
 		#=====[ Step 1: get translation	]=====
 		translation = ""
 		try:
-			lang = email.subject.strip()
-			if lang in Goslate().get_languages():
+			lang = email.subject.strip().upper()
+			if lang in Goslate().get_languages().values():
 				go = Goslate()
 				translation = go.translate(email.body,lang)
 			else:
-				translation = lang + u' no está soportado intente con es/en/fr'
+				translation = lang + u' no esta soportado intente con es/en/fr'
 		except:
-			translation = u'Error durante la traducción!'
+			translation = u'Error durante la traduccion!'
 
 		#=====[ Step 2: format	]=====
-		return u"""
-Traducción para:
-==================
+		return x = """
+Traduccion para:
+================
 
 %s
 ---
