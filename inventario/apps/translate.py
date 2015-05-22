@@ -28,7 +28,7 @@ class App(EmailAppBase):
 			translation = u'Error durante la traduccion!'
 
 		#=====[ Step 2: format	]=====
-		return x = """
+		return """
 Traduccion para:
 ================
 
@@ -36,7 +36,7 @@ Traduccion para:
 ---
 
 %s
-""" % (unicode(email.subject.strip()), unicode(translation))
+""" % (email.subject.strip().encode('ascii'), translation.encode('ascii'))
 
 
 
