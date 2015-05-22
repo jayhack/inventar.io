@@ -14,5 +14,4 @@ from inventario import AppManager
 base_dir = os.path.dirname(os.path.realpath(__file__))
 app_manager = AppManager(base_dir, 'inventario.apps')
 apps = app_manager.get_apps()
-# apps += [('/', LandingPageApp)]
 app = webapp2.WSGIApplication(apps)
