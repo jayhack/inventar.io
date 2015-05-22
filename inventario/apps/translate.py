@@ -23,12 +23,12 @@ class App(EmailAppBase):
 				go = Goslate()
 				translation = go.translate(email.body,lang)
 			else:
-				translation = lang+" no está soportado intente con es/en/fr"
+				translation = lang + u' no está soportado intente con es/en/fr'
 		except:
-			translation = 'Error durante la traducción!'
+			translation = u'Error durante la traducción!'
 
 		#=====[ Step 2: format	]=====
-		return """
+		return u"""
 Traducción para:
 ==================
 
@@ -36,7 +36,7 @@ Traducción para:
 ---
 
 %s
-""" % (email.subject.strip(), translation)
+""" % (unicode(email.subject.strip()), unicode(translation))
 
 
 
