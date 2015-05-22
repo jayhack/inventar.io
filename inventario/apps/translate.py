@@ -15,17 +15,17 @@ class App(EmailAppBase):
 
 	def get_translation(self, email):
 		"""returns translation"""
+		go = Goslate()
+
 		#=====[ Step 1: get translation	]=====
-		translation = ""
-		try:
-			lang = email.subject.strip().lower().capitalize()
-			if lang in Goslate().get_languages().values():
-				go = Goslate()
-				translation = go.translate(email.body,lang)
-			else:
-				translation = lang + u' no esta soportado intente con es/en/fr'
-		except:
-			translation = u'Error durante la traduccion!'
+		lang = email.subject.strip().lower().capitalize()
+		if lang in go.get_languages().values():
+			try:
+				translation = go.translate(email.body, lang)
+			except:
+				translation = "Translation error."
+		else:
+			translation = u'%s no esta soportado intente con es/en/fr' % lang
 
 		#=====[ Step 2: format	]=====
 		return """
