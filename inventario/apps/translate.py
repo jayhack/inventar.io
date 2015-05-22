@@ -19,9 +19,11 @@ class App(EmailAppBase):
 
 		#=====[ Step 1: get translation	]=====
 		lang = email.subject.strip().lower().capitalize()
-		if lang in go.get_languages().values():
+		langs = go.get_languages()
+		if lang in langs.values():
+			lang_code = [k for k,v in langs.items() if langs[k] == lang][0]
 			try:
-				translation = go.translate(email.body, lang)
+				translation = go.translate(email.body, lang_code)
 			except:
 				translation = "Translation error."
 		else:
