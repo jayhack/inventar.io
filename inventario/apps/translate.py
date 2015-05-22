@@ -18,7 +18,7 @@ class App(EmailAppBase):
 		#=====[ Step 1: get translation	]=====
 		translation = ""
 		try:
-			lang = email.subject.strip().upper()
+			lang = email.subject.strip().lower().capitalize()
 			if lang in Goslate().get_languages().values():
 				go = Goslate()
 				translation = go.translate(email.body,lang)
