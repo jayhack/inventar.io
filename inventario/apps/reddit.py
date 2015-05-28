@@ -12,7 +12,7 @@ class App(EmailAppBase):
 	#=====[ Metadata	]=====
 	dependencies = ['praw']
 	from_email = 'reddit@ivioapp.com'
-	user_agent = s
+	user_agent = 'Avioapp scrapper 1.0 by /u/ED_Os'
 	post_limit = 20
 
 	def posts_to_summary(self, posts):
