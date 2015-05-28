@@ -31,7 +31,8 @@ class App(EmailAppBase):
 			summary = self.posts_to_summary(posts)
 		else:
 			try:
-				posts = r.get_subreddit(subreddit, limit=self.post_limit)
+				sub = r.get_subreddit(subreddit)
+				posts = sub.get_hot(limit=self.post_limit)
 				summary = self.posts_to_summary(posts)
 			except:
 				summary = u'Could not find subreddit: %s' % subreddit
