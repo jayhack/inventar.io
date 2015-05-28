@@ -15,7 +15,7 @@ class App(EmailAppBase):
 	API_KEY = '1f5afb17bcb9c1b1a63b2349866a89a8'
 	from_email = 'clima@ivioapp.com'
 	header = 'Prognostico del Tiempo%s======================'
-	havana_gps = (23.1333, 82.3833)
+	havana_gps = (23.1333, -82.3833)
 
 
 	def get_gps(self, mail):
