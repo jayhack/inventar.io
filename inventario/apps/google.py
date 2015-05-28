@@ -1,6 +1,6 @@
 from ..app_base import EmailAppBase
-from google import search
-from BeautifulSoup import BeautifulSoup
+import google
+import BeautifulSoup
 import urllib2
 
 class App(EmailAppBase):
@@ -20,13 +20,13 @@ class App(EmailAppBase):
 		try:
 			search = ""
 			c = 0
-			for url in search(email.subject.strip(),lang='es'):
+			for url in google.search(email.subject.strip(),lang='es'):
 				if c == 10:
 					break
 				c+=1
 				try:
 					data = urllib2.urlopen(url).read()
-					search += BeautifulSoup(data).html.head.title.contents
+					search += BeautifulSoup.BeautifulSoup(data).html.head.title.contents
 				except:
 					search += "No se puede obtener titulo para esta direccion"
 					pass
