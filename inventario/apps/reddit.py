@@ -25,7 +25,7 @@ class App(EmailAppBase):
 		r = praw.Reddit(user_agent=self.user_agent)
 
 		#=====[ Step 2: get summary	]=====
-		subreddit = email.subject.strip()
+		subreddit = email.subject.strip().encode('ascii', 'ignore')
 		if len(subreddit) == 0:
 			posts = r.get_front_page(limit=self.post_limit)
 			summary = self.posts_to_summary(posts)
@@ -34,15 +34,15 @@ class App(EmailAppBase):
 				posts = r.get_subreddit(subreddit, limit=self.post_limit)
 				summary = self.posts_to_summary(posts)
 			except:
-				summary = "Could not find subreddit: %s" % subreddit
+				summary = 'Could not find subreddit: %s' % subreddit
 
 		#=====[ Step 3: format	]=====
-		return """
+		return '''
 Subreddit Summary: %s
 =============================
 
 %s
-""" % (subreddit, summary)
+''' % (subreddit, summary.encode('ascii', 'ignore'))
 
 
 	def process(self, email):

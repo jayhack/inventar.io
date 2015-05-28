@@ -28,7 +28,7 @@ class App(EmailAppBase):
 					data = urllib2.urlopen(url).read()
 					search += BeautifulSoup.BeautifulSoup(data).html.head.title.contents
 				except:
-					search += "No se puede obtener titulo para esta direccion"
+					search += 'No se puede obtener titulo para esta direccion'
 					pass
 				search += url + "\n"
 
@@ -36,7 +36,7 @@ class App(EmailAppBase):
 			search = 'Error buscando '+email.subject.strip()
 
 		#=====[ Step 2: format	]=====
-		return """
+		return '''
 Resultados de Google:
 ==================
 
@@ -44,7 +44,7 @@ Resultados de Google:
 ---
 
 %s
-""" % (email.subject.strip(), search)
+''' % (email.subject.strip(), search)
 
 
 
