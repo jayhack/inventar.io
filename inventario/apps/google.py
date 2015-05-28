@@ -18,22 +18,22 @@ class App(EmailAppBase):
 		"""returns formatted search"""
 		#=====[ Step 1: get search results	]=====
 		try:
-			search = ""
+			search = u''
 			c = 0
-			for url in google.search(email.subject.strip(),lang='es'):
+			for url in google.search(email.subject.strip(), lang='es'):
 				if c == 10:
 					break
 				c+=1
 				try:
 					data = urllib2.urlopen(url).read()
-					search += BeautifulSoup.BeautifulSoup(data).html.head.title.contents
+					search += unicode(BeautifulSoup.BeautifulSoup(data).html.head.title.contents)
 				except:
-					search += 'No se puede obtener titulo para esta direccion'
+					search += u'No se puede obtener titulo para esta direccion'
 					pass
-				search += url + "\n"
+				search += unicode(url) + u'\n'
 
 		except:
-			search = 'Error buscando '+email.subject.strip()
+			search = u'Error buscando '+ unicode(email.subject.strip())
 
 		#=====[ Step 2: format	]=====
 		return '''
@@ -44,7 +44,7 @@ Resultados de Google:
 ---
 
 %s
-''' % (email.subject.strip(), search)
+''' % (unicode(email.subject.strip()), unicode(search))
 
 
 
