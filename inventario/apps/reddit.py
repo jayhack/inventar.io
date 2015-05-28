@@ -16,8 +16,8 @@ class App(EmailAppBase):
 	post_limit = 20
 
 	def posts_to_summary(self, posts):
-		"""posts generator -> string"""
-		return '\n'.join([str(p) for p in posts])
+		"""posts generator -> unicode"""
+		return u'\n'.join([unicode(str(p)) for p in posts])
 
 	def get_summary(self, email):
 		"""returns formatted summary"""
@@ -25,7 +25,7 @@ class App(EmailAppBase):
 		r = praw.Reddit(user_agent=self.user_agent)
 
 		#=====[ Step 2: get summary	]=====
-		subreddit = email.subject.strip().encode('ascii', 'ignore')
+		subreddit = unicode(email.subject.strip())
 		if len(subreddit) == 0:
 			posts = r.get_front_page(limit=self.post_limit)
 			summary = self.posts_to_summary(posts)
@@ -34,25 +34,28 @@ class App(EmailAppBase):
 				posts = r.get_subreddit(subreddit, limit=self.post_limit)
 				summary = self.posts_to_summary(posts)
 			except:
-				summary = 'Could not find subreddit: %s' % subreddit
+				summary = u'Could not find subreddit: %s' % subreddit
 
+		print 'subreddit type: ', type(subreddit)
+		print 'summary type: ', type(summary)
 		#=====[ Step 3: format	]=====
-		return '''
+		return u'''
 Subreddit Summary: %s
 =============================
 
 %s
-''' % (subreddit, summary.encode('ascii', 'ignore'))
+''' % (subreddit, summary)
 
 
 	def process(self, email):
 		#=====[ Step 1: get body	]=====
 		body = self.get_summary(email)
+		print 'body type: ', type(body)
 
 		#=====[ Step 2: send results	]=====
 		self.email_client.send_message(
 										self.from_email, 
 										email.user, 
-										'Resultados de Reddit', 
+										u'Resultados de Reddit', 
 										body
 										)
