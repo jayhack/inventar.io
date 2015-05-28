@@ -21,7 +21,6 @@ class App(EmailAppBase):
 		print '=====[ types: ]====='
 		for s in strs:
 			print type(s)
-			print s
 		return u'\n'.join([unicode(p) for p in posts])
 
 	def get_summary(self, email):
