@@ -17,8 +17,6 @@ class App(EmailAppBase):
 
 	def posts_to_summary(self, posts):
 		"""posts generator -> unicode"""
-		strs = [unicode(p) for p in posts]
-		print '# strs: ', len(strs)
 		return u'\n'.join([unicode(p) for p in posts])
 
 	def get_summary(self, email):
@@ -29,11 +27,9 @@ class App(EmailAppBase):
 		#=====[ Step 2: get summary	]=====
 		subreddit = unicode(email.subject.strip())
 		if len(subreddit) == 0:
-			print 'HERE'
 			posts = r.get_front_page(limit=self.post_limit)
 			summary = self.posts_to_summary(posts)
 		else:
-			print 'THERE'
 			try:
 				posts = r.get_subreddit(subreddit, limit=self.post_limit)
 				summary = self.posts_to_summary(posts)
@@ -42,6 +38,7 @@ class App(EmailAppBase):
 
 		print 'subreddit type: ', type(subreddit)
 		print 'summary type: ', type(summary)
+		print 'len of summary: ', len(summary)
 		#=====[ Step 3: format	]=====
 		return u'''
 Subreddit Summary: %s
