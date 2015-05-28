@@ -12,12 +12,17 @@ class App(EmailAppBase):
 	#=====[ Metadata	]=====
 	dependencies = ['praw']
 	from_email = 'reddit@ivioapp.com'
-	user_agent = "Ivioapp scrapper 1.0 by /u/ED_Os"
+	user_agent = s
 	post_limit = 20
 
 	def posts_to_summary(self, posts):
 		"""posts generator -> unicode"""
-		return u'\n'.join([unicode(str(p)) for p in posts])
+		strs = [unicode(p) for p in posts]
+		print '=====[ types: ]====='
+		for s in strs:
+			print type(s)
+			print s
+		return u'\n'.join([unicode(p) for p in posts])
 
 	def get_summary(self, email):
 		"""returns formatted summary"""
