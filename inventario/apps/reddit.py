@@ -37,9 +37,6 @@ class App(EmailAppBase):
 			except:
 				summary = u'Could not find subreddit: %s' % subreddit
 
-		print 'subreddit type: ', type(subreddit)
-		print 'summary type: ', type(summary)
-		print 'len of summary: ', len(summary)
 		#=====[ Step 3: format	]=====
 		return u'''
 Subreddit Summary: %s
@@ -52,7 +49,6 @@ Subreddit Summary: %s
 	def process(self, email):
 		#=====[ Step 1: get body	]=====
 		body = self.get_summary(email)
-		print 'body type: ', type(body)
 
 		#=====[ Step 2: send results	]=====
 		self.email_client.send_message(

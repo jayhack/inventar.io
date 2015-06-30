@@ -1,5 +1,5 @@
 from ..app_base import EmailAppBase
-import google
+import pygoogle
 import BeautifulSoup
 import urllib2
 
@@ -11,7 +11,7 @@ class App(EmailAppBase):
 	"""
 
 	#=====[ Metadata	]=====
-	dependencies = ['google','BeautifulSoup','urllib2']
+	dependencies = ['pygoogle','BeautifulSoup','urllib2']
 	from_email = 'google@ivioapp.com'
 
 	def get_search(self, email):
