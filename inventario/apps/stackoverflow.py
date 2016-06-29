@@ -24,8 +24,8 @@ class App(EmailAppBase):
 		try:
             # Query Google CSE to get the top hit SE question
             service = build("customsearch","v1",developerKey=GOOGLE_API_KEY)
-            links = service.cse().list(q=email.subject.strip(),cx=GOOGLE_CSE_KEY)
-            question_id = re.split('/',results['items'][0]['link'])[4]
+            links = service.cse().list(q=email.subject.strip(),cx=GOOGLE_CSE_KEY).execute()
+            question_id = re.split('/',links['items'][0]['link'])[4]
 
             # Query StackExchange for data on top hit SE question
             site = stackexchange.Site(stackexchange.StackOverflow, app_key=SE_KEY)
@@ -35,11 +35,11 @@ class App(EmailAppBase):
             answer = question.answers[0]
 
             op = question.owner
-            rp = site.users(answer.owner_id) # answer.owner is broken
+            rp = answer.owner
 
             # Prepare data for output
             result = '%s\n' % question.title
-            result += '%s\n' % links[0] # must include for SE licensing reasons (also for names/links below)
+            result += '%s\n' % links['items'][0]['link'] # must include for SE licensing reasons (also for names/links below)
             result += '%s\n' % question.body
             result += '%s\n' % op.display_name
             result += 'http://%s/users/%s\n' % (site.root_domain,op.id)
